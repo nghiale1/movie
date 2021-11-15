@@ -16,9 +16,9 @@ class CreateTableBannerTable extends Migration
         Schema::create('banner', function (Blueprint $table) {
             $table->bigIncrements('id_banner');
             $table->string('banner_img');
-            $table->bigInteger('id_mv')->unsigned();
+            $table->bigInteger('id_mv')->nullable()->unsigned();
             $table->foreign('id_mv')->references('id_mv')->on('movie')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('id_user')->unsigned();
+            $table->bigInteger('id_user')->nullable()->unsigned();
             $table->foreign('id_user')->references('id_user')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
@@ -26,7 +26,7 @@ class CreateTableBannerTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *`
      * @return void
      */
     public function down()

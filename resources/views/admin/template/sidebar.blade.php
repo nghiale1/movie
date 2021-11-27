@@ -82,6 +82,16 @@
                 </li>
                 <li class="nav-header">QUẢN LÝ PHIM</li>
                 <li class="nav-item">
+                    <a href="{{ route('showtime.index') }}" class="nav-link
+                    @if (Request::segment(2) == 'suat-chieu')
+                        active
+                    @endif
+                    ">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Suất chiếu</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('movie-type.index') }}" class="nav-link
                     @if (Request::segment(2) == 'loai-phim')
                         active

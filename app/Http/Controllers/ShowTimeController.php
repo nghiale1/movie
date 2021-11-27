@@ -15,7 +15,7 @@ class ShowTimeController extends Controller
     public function index()
     {
         $showtime = DB::table('showtime')
-            ->join('branch','branch.id_branch','showtime.id_branch')
+            ->join('room','room.id_room','showtime.id_room')
             ->join('type_showtime','type_showtime.id_typest','showtime.id_typest')
             ->join('movie','movie.id_mv','showtime.id_mv')
             ->get();

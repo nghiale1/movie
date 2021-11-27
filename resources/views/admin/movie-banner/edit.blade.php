@@ -22,10 +22,10 @@
     <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
-            <form role="form" method="POST" action="{{ route('movie-banner.update', ['id' => $BannerDetail->id_banner]) }}">
+            <form role="form" method="POST" action="{{ route('movie-banner.update', $banner) }}" enctype="multipart/form-data">
                 <div class="card card-warning">
                     <div class="card-header">
-                        <h3 class="card-title">Chỉnh sửa tin tức</h3>
+                        <h3 class="card-title">Chỉnh sửa banner</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -37,7 +37,7 @@
                                     <label>Banner của phim</label>
                                     <select class="form-control" name="id_mv">
                                         @foreach ($movie as $item)
-                                            <option value="{{ $item->id_mv }}" {{ $banner->id_discount == $item->id_mv ? 'selected' : '' }}>{{ $item->mv_name }}</option>
+                                            <option value="{{ $item->id_mv }}" {{ $banner->banner == $item->id_mv ? 'selected' : '' }}>{{ $item->mv_name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -45,8 +45,9 @@
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label>Hình ảnh</label>
-                                    <input type="file" value="{{ $BannerDetail->banner_img }}" id ="banner_img" name="banner_img" class="form-control">
+                                    <label>Hình ảnh</label><br>
+                                    <img src="{{ asset($banner->banner_img)??'' }}" alt="" style="width: 200px;height: 100px;"><br><br>
+                                    <input type="file" value="{{ $banner->banner_img }}" id ="banner_img" name="banner_img" class="form-control">
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use App\Services\CommonService;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton('common-service', function ($app) {
+            return $app->make(CommonService::class);
+        });
     }
 
     /**

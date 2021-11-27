@@ -50,7 +50,6 @@ class Movie extends Model
 	protected $primaryKey = 'id_mv';
 
 	protected $casts = [
-		'timemv' => 'int',
 		'subdub' => 'bool',
 		'id_typemv' => 'int',
 		'id_language' => 'int',
@@ -58,10 +57,6 @@ class Movie extends Model
 		'id_user' => 'int'
 	];
 
-	protected $dates = [
-		'date_start',
-		'date_end'
-	];
 
 	protected $fillable = [
 		'mv_name',

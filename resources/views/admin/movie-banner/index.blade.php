@@ -13,7 +13,14 @@
 @section('title-direct')
     Banner
 @endsection
-
+@push('css')
+    <style>
+        .img{
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+@endpush
 {{-- set content --}}
 @section('content')
     {{-- thông báo --}}
@@ -42,12 +49,12 @@
                     @foreach ($banner as $item)
                     <tr>
                         <td>{{ $stt++ }}</td>
-                        <td>{{ $item->mv_name }}</td>
-                        <td>{{ $item->banner_img }}</td>
+                        <td>{{ $item->movie->mv_name??'' }}</td>
+                        <td><img src="{{asset($item->banner_img??'')}}" alt="" class="img"></td>
                         <td>{{ $item->id_user }}</td>
                         <td>
-                            <a href="{{ route('movie-banner.edit', ['id'=>$item->id_banner]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('movie-banner.destroy', ['id'=>$item->id_banner]) }}" class="btn btn-danger del">Xóa</a>
+                            <a href="{{ route('movie-banner.edit', $item->id_banner) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('movie-banner.destroy', $item->id_banner) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

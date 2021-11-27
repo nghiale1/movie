@@ -44,14 +44,12 @@
                     @foreach ($showtime as $item)
                     <tr>
                         <td>{{ $stt++ }}</td>
-                        <td>{{ $item->branch_name }}</td>
+                        <td>{{ $item->room_name }}</td>
                         <td>{{ $item->mv_name }}</td>
                         <td>{{ $item->typest_name }}</td>
                         <td>{{ $item->datetime }}</td>
                         <td>{{ $item->id_user }}</td>
                         <td>
-                            <a href="{{ route('showtime.edit', ['id'=>$item->id_showtime]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('showtime.destroy', ['id'=>$item->id_showtime]) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

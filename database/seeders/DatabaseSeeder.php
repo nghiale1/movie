@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Movie::class);
         $this->call(ShowTime::class);
         $this->call(Food::class);
+        $this->call(TypeAcc::class);
     }
 }

@@ -41,6 +41,24 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+        'poster' => [
+            'driver' => 'local',
+            'root' => public_path('/poster'),
+            'url' => '/poster',
+            'visibility' => 'public',
+        ],
+        'banner' => [
+            'driver' => 'local',
+            'root' => public_path('/banner'),
+            'url' => '/banner',
+            'visibility' => 'public',
+        ],
+        'trailer' => [
+            'driver' => 'local',
+            'root' => public_path('/trailer'),
+            'url' => '/trailer',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

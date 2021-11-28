@@ -44,8 +44,12 @@ use App\Http\Controllers\AuthController;
 |
 */
 
+// Route::get('/', function () {
+//     return view('customer.index');
+// });
+
 Route::get('/', function () {
-    return view('customer.index');
+    return view('client.master');
 });
 
 //Quản trị

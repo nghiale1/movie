@@ -84,6 +84,7 @@ class User extends AuthUser
 		'id_type',
 		'id_typemem',
 		'id_voucher',
+		'id_branch',
 		'remember_token'
 	];
 

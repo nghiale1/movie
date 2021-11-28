@@ -26,6 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('phone_number')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('points')->nullable();
+
+            $table->bigInteger('id_branch')->nullable()->unsigned();
+            $table->foreign('id_branch')->references('id_branch')->on('branch')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_type')->unsigned();
             $table->foreign('id_type')->references('id_type')->on('type_acc')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_typemem')->unsigned();

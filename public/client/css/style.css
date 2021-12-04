@@ -3,7 +3,7 @@
 
 @Author: Themezinho
 @URL: http://www.themezinho.net
- 
+
 This file contains the styling for the actual theme, this
 is the file you need to edit to change the look of the
 theme.
@@ -24,7 +24,7 @@ theme.
 		11. MOBILE MENU
 		12. SEARCH BOX
 		13. NAVBAR
-		14. SLIDER 
+		14. SLIDER
 		15. PAGE HEADER
 		16. VIDEO PLAYER
 		17. MOVIE INFO BOX
@@ -55,7 +55,7 @@ theme.
 		42. RESPONSIVE TABLET FIXES
 		43. RESPONSIVE MOBILE FIXES
 
-	
+
 
 */
 /* GOOGLE FONTS */
@@ -89,7 +89,8 @@ theme.
 body {
   margin: 0;
   padding: 0;
-  font-family: "Mont";
+  /* font-family: "Mont"; */
+  font-family: Verdana, Arial, sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

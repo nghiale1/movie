@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Movie
- * 
+ *
  * @property int $id_mv
  * @property string $mv_name
  * @property string $director
@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_user
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property Format $format
  * @property Language $language
  * @property TypeMovie $type_movie

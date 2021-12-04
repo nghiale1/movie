@@ -9,13 +9,13 @@
 		</div>
 		<!-- end mobile-search -->
   <a href="account.html" class="button-account"><i class="lni lni-user"></i> ACCOUNT </a>
-    <!-- end button-account --> 
+    <!-- end button-account -->
 	<div class="site-menu">
     <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="movies.html">MOVIES</a></li>
-      <li><a href="tv-shows.html">TV SHOWS</a></li>
-      <li><a href="tips.html">TIPS</a></li>
+      <li><a href="{{ route('index') }}">Trang chủ</a></li>
+      <li><a href="{{ route('movie.list') }}">Phim</a></li>
+      <li><a href="tv-shows.html">Thành viên</a></li>
+      <li><a href="tips.html">Tin tức & Sự kiện</a></li>
     </ul>
   </div>
   <!-- end site-menu -->
@@ -28,11 +28,11 @@
   <!-- end logo -->
   <div class="site-menu">
     <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li><a href="movies.html">MOVIES</a></li>
-      <li><a href="tv-shows.html">TV SHOWS</a></li>
-      <li><a href="tips.html">TIPS</a></li>
-    </ul>
+        <li><a href="{{ route('index') }}">Trang chủ</a></li>
+        <li><a href="{{ route('movie.list') }}">Phim</a></li>
+        <li><a href="tv-shows.html">Thành viên</a></li>
+        <li><a href="tips.html">Tin tức & Sự kiện</a></li>
+      </ul>
   </div>
   <!-- end site-menu -->
   <div class="user-menu">
@@ -53,13 +53,13 @@
             <span>3 Days</span></li>
         </ul>
       </div>
-      <!-- end notify-dropdown --> 
+      <!-- end notify-dropdown -->
     </div>
     <!-- end navbar-notify -->
     <div class="navbar-account"> <a href="account.html">ACCOUNT <i class="lni lni-user"></i> </a></div>
-    <!-- end navbar-account --> 
+    <!-- end navbar-account -->
   </div>
-  <!-- end user-menu --> 
+  <!-- end user-menu -->
       <div class="hamburger-menu">
         <button class="hamburger">
         <svg width="45" height="45" viewBox="0 0 100 100">
@@ -69,7 +69,7 @@
         </svg>
         </button>
       </div>
-      <!-- end hamburger-menu --> 
+      <!-- end hamburger-menu -->
 </nav>
 <!-- end navbar -->
 <section class="search-box">
@@ -85,5 +85,5 @@
       <li><a href="#">The Racer</a></li>
     </ul>
   </div>
-  <!-- end container --> 
+  <!-- end container -->
 </section>

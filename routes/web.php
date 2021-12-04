@@ -27,7 +27,7 @@ use App\Http\Controllers\TicketFoodController;
 use App\Http\Controllers\TypeSeatController;
 use App\Http\Controllers\TypeShowTimeController;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\Client\MainController;
 
 
 
@@ -47,10 +47,6 @@ use App\Http\Controllers\AuthController;
 // Route::get('/', function () {
 //     return view('customer.index');
 // });
-
-Route::get('/', function () {
-    return view('client.template.master');
-});
 
 Route::middleware(['CheckAuthSatff'])->group(function () {
     Route::group(['middleware' => 'CheckRole:2'], function () { //nhân viên
@@ -86,7 +82,7 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::post('/xu-ly-sua/{id}', [MovieTypeController::class, 'update'])->name('movie-type.update');
                 Route::get('/xoa/{id}', [MovieTypeController::class, 'destroy'])->name('movie-type.destroy');
             });
-            
+
             //Phim
             Route::prefix('/phim')->group(function () {
                 Route::get('/', [MovieController::class, 'index'])->name('movie.index');
@@ -259,3 +255,12 @@ Route::get('/login', function () {
     return view('admin.auth.login');
 })->name('login');
 Route::post('auth', [AuthController::class, 'login'])->name('account.auth');
+
+
+
+//client
+Route::prefix('/')->group(function () {
+    Route::get('/', [MainController::class,'index'])->name('index');
+    Route::get('/phim', [MainController::class,'movieList'])->name('movie.list');
+    Route::get('/{id}/phim', [MainController::class,'movieDetail'])->name('movie.detail');
+});

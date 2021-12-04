@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
-            <form role="form" method="POST" action="{{ route('movie-banner.update', ['id' => $showtimeDetail->id_banner]) }}">
+            <form role="form" method="POST" action="{{ route('showtime.update',$showtime) }}">
                 <div class="card card-warning">
                     <div class="card-header">
                         <h3 class="card-title">Chỉnh sửa suất chiếu cho phim</h3>
@@ -31,17 +31,6 @@
                     <div class="card-body">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-12">
-                                <!-- text input -->
-                                <div class="form-group">
-                                    <label>Chi nhánh</label>
-                                    <select class="form-control" name="id_mv">
-                                        @foreach ($branch as $item)
-                                            <option value="{{ $item->id_branch }}" {{ $showtime->id_branch == $item->id_branch ? 'selected' : '' }}>{{ $item->branch_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
@@ -65,10 +54,21 @@
                                 </div>
                             </div>
                             <div class="col-sm-12">
+                                <div class="form-group">
+                                <label for="id_room">Phòng chiếu: </label>
+                                <select class="form-control" name="id_room">
+                                    <option>Chọn phòng</option>
+                                    @foreach ($room as $item)
+                                      <option value="{{ $item->id_room }}" {{ $showtime->id_room == $item->id_room ? 'selected' : '' }}> {{ $item->room_name }} </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            </div>
+                            <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Ngày và giờ chiếu</label>
-                                    <input type="file" value="{{ $showtimeDetail->datetime }}" id ="datetime" name="datetime" class="form-control">
+                                    <input type="datetime-local" value="{{date('Y-m-d\TH:i:s', strtotime($showtime->datetime)) }}" id ="datetime" name="datetime" class="form-control">
                                 </div>
                             </div>
                         </div>

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_food
  * @property string $food_name
  * @property float $food_price
- * @property bool $status
+ * @property int $status
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -28,12 +28,13 @@ class Food extends Model
 
 	protected $casts = [
 		'food_price' => 'float',
-		'status' => 'bool'
+		'status' => 'int'
 	];
 
 	protected $fillable = [
 		'food_name',
 		'food_price',
+		'food_pic',
 		'status'
 	];
 }

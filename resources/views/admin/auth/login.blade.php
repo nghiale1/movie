@@ -9,10 +9,9 @@
 <body>
     <form action="{{route('account.auth')}}" method="post">
         @csrf 
-        <input type="text" name="username" value="GVA">
-        <input type="text" name="password" value="GVA">
+        <input type="text" name="username" value="admin">
+        <input type="text" name="password" value="admin">
         <button type="submit">Submit</button>
     </form>
-    form
 </body>
 </html>

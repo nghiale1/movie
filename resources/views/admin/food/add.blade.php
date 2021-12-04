@@ -28,7 +28,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="{{ route('food.store') }}" method="POST">
+                <form role="form" action="{{ route('food.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -38,22 +38,22 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="price_food">Giá</label>
-                            <textarea type="text" class="form-control" id="price_food" name="price_food" placeholder="Nhập giá"></textarea>
+                            <label for="food_price">Giá</label>
+                            <input type="number" class="form-control" id="food_price" name="food_price" placeholder="Nhập giá" min="0">
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="image_food">Hình ảnh</label>
-                            <textarea type="file" class="form-control" id="image_food" name="image_food"></textarea>
+                            <label for="food_pic">Hình ảnh</label>
+                            <input type="file" class="form-control" id="food_pic" name="food_pic">
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
                             <label for="status">Trạng thái:</label>
-                            <input type="checkbox" value="0" id="status" name="status" style="margin-left:15px;">
+                            <input type="radio" value="0" id="status" name="status" style="margin-left:15px;">
                             <label>Tạm hết hàng</label>
-                            <input type="checkbox" value="1" id="status" name="status" style="margin-left:10px;">
+                            <input type="radio" value="1" id="status" name="status" style="margin-left:10px;" checked>
                             <label>Vẫn còn hàng</label>
                         </div>
                     </div>

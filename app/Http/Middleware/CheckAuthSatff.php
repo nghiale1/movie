@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Auth;
+
 class CheckAuthSatff
 {
     /**
@@ -16,11 +17,10 @@ class CheckAuthSatff
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return $next($request);
-        }
-        else{
-return back();
+        } else {
+        return redirect()->route('login');
         }
     }
 }

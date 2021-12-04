@@ -13,6 +13,14 @@
 @section('title-direct')
     Đồ ăn vặt
 @endsection
+@push('css')
+    <style>
+        .image{
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+@endpush
 
 {{-- set content --}}
 @section('content')
@@ -35,6 +43,7 @@
                         <th>Hình ảnh</th>
                         <th>Giá</th>
                         <th>Trạng thái</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,12 +52,14 @@
                     <tr>
                         <td>{{ $stt++ }}</td>
                         <td>{{ $item->food_name }}</td>
-                        <td>{{ $item->image_food }}</td>
-                        <td>{{ $item->food_price }}</td>
-                        <td>{{ $item->status }}</td>
                         <td>
-                            <a href="{{ route('food.edit', ['id'=>$item->id_food]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('food.destroy', ['id'=>$item->id_food]) }}" class="btn btn-danger del">Xóa</a>
+                            <img src="{{asset($item->food_pic)}}" alt="" class="image">
+                        </td>
+                        <td>{{ number_format($item->food_price) }}</td>
+                        <td>{{ $item->status=='1'?'Vẫn còn hàng':"Tạm hết hàng" }}</td>
+                        <td>
+                            <a href="{{ route('food.edit', $item->id_food) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('food.destroy', $item->id_food) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

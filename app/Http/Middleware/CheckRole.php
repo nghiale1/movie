@@ -17,10 +17,10 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next,$role)
     {
-        if (Auth::check() && Auth::user()->id_type==$role) {
+            if (Auth::check() && Auth::user()->id_type==$role) {
             return $next($request);
         }
 
-        return back();
+        return redirect()->route('login');
     }
 }

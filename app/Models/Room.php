@@ -47,4 +47,25 @@ class Room extends Model
 	{
 		return $this->hasMany(Seat::class, 'id_room');
 	}
+
+	/**
+	 * Get all of the showtime for the Room
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function showtime()
+	{
+		return $this->hasMany(Showtime::class, 'id_room', 'id_room');
+	}
+
+	/**
+	 * Get all of the showtimebyDate for the Room
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function showtimebyDate($date)
+	{
+		return $this->showtime()->whereDate('datetime', $date)->get();
+	}
+
 }

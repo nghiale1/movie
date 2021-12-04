@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
+use App\Models\Showtime;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use Session;
 class ShowTimeController extends Controller
 {
@@ -12,14 +15,29 @@ class ShowTimeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $showtime = DB::table('showtime')
-            ->join('room','room.id_room','showtime.id_room')
-            ->join('type_showtime','type_showtime.id_typest','showtime.id_typest')
-            ->join('movie','movie.id_mv','showtime.id_mv')
-            ->get();
-        return view('admin.showtime.index', compact('showtime'));
+        $datetime=Showtime::select(DB::raw('DATE(datetime) as date'))
+        ->groupBy('date')
+        ->orderBy('date','desc')
+        ->get();
+        $request->datetime??$request->merge(['datetime'=>$datetime[0]->date??'all']);
+        $myid_branch=Auth::user()->id_branch;
+
+        
+        $room=Room::with('showtime')->where('id_branch', $myid_branch);
+        
+        $request->datetime!='all'&&$room =$room->whereHas('showtime', function($q) use ($request){
+            $q->whereDate('datetime', $request->datetime);
+        });
+        $room =$room->get();
+// dd($room[0]->showtimebyDate('2021-12-05'));
+        $showtime = Showtime::with('room.branch')->whereHas('room.branch', function($q) use ($myid_branch){
+            $q->where('id_branch', $myid_branch);
+        });
+        $request->datetime!='all'&&$showtime =$showtime->whereDate('datetime',$request->datetime);
+        $showtime =$showtime->get();
+        return view('admin.showtime.index', compact('showtime','datetime','request','room'));
     }
 
     /**
@@ -29,10 +47,11 @@ class ShowTimeController extends Controller
      */
     public function create()
     {
-        $branch = DB::table('branch')->get();
+        $branch = DB::table('branch')->where('id_branch',Auth::user()->id_branch)->first();
+        $room=Room::where('id_branch',$branch->id_branch)->get();
         $type_showtime = DB::table('type_showtime')->get();
         $movie = DB::table('movie')->get();
-        return view('admin.showtime.add', compact('branch', 'type_showtime', 'movie'));
+        return view('admin.showtime.add', compact('branch', 'type_showtime', 'movie','room'));
     }
 
     /**
@@ -43,20 +62,9 @@ class ShowTimeController extends Controller
      */
     public function store(Request $request)
     {
-        $datetime = $request->datetime;
-        $id_branch = $request->id_branch;
-        $id_typest = $request->id_typest;
-        $id_mv = $request->id_mv;
         try {
-            //code...
-            DB::table('type_movie')->insert(
-                [
-                    'datetime' => $datetime,
-                    'id_branch' => $id_branch,
-                    'id_typest' => $id_typest,
-                    'id_mv' => $id_mv
-                ]
-            );
+            Showtime::create($request->all());
+           
             Session::flash('success','Thêm mới thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -83,12 +91,14 @@ class ShowTimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Showtime $showtime)
     {
         try {
-            //code...
-            $showtimeDetail = DB::table('showtime')->where('id_showtime', $id)->first();
-            return view('admin.showtime.edit', compact('showtimeDetail'));
+            $branch = DB::table('branch')->where('id_branch',Auth::user()->id_branch)->first();
+        $room=Room::where('id_branch',$branch->id_branch)->get();
+        $type_showtime = DB::table('type_showtime')->get();
+        $movie = DB::table('movie')->get();
+            return view('admin.showtime.edit', compact('showtime','branch', 'type_showtime', 'movie','room'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -103,22 +113,10 @@ class ShowTimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Showtime $showtime)
     {
-        $datetime = $request->datetime;
-        $id_branch = $request->id_branch;
-        $id_typest = $request->id_typest;
-        $id_mv = $request->id_mv;
         try {
-            //code...
-            DB::table('type_movie')->where('id_typemv', $id)->update(
-                [
-                    'datetime' => $datetime,
-                    'id_branch' => $id_branch,
-                    'id_typest' => $id_typest,
-                    'id_mv' => $id_mv
-                ]
-            );
+            $showtime->update($request->all());
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -134,11 +132,11 @@ class ShowTimeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Showtime $showtime)
     {
         try {
-            //code...
-            DB::table('showtime')->where('id_showtime', $id)->delete();
+            //TODO
+            // DB::table('showtime')->where('id_showtime', $id)->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

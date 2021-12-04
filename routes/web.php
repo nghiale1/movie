@@ -49,11 +49,22 @@ use App\Http\Controllers\AuthController;
 // });
 
 Route::get('/', function () {
-    return view('client.master');
+    return view('client.template.master');
 });
 
 Route::middleware(['CheckAuthSatff'])->group(function () {
-    Route::group(['middleware' => 'CheckRole:1'], function () { //quản lý kho
+    Route::group(['middleware' => 'CheckRole:2'], function () { //nhân viên
+        //Phim
+        Route::prefix('/suat-chieu')->name('showtime.')->group(function () {
+            Route::get('/', [ShowTimeController::class, 'index'])->name('index');
+            Route::get('/them-moi', [ShowTimeController::class, 'create'])->name('add');
+            Route::post('xu-ly-them', [ShowTimeController::class, 'store'])->name('store');
+            Route::get('/chinh-sua/{showtime}', [ShowTimeController::class, 'edit'])->name('edit');
+            Route::post('/xu-ly-sua/{showtime}', [ShowTimeController::class, 'update'])->name('update');
+            Route::get('/xoa/{showtime}', [ShowTimeController::class, 'destroy'])->name('destroy');
+        });
+    });
+    Route::group(['middleware' => 'CheckRole:1'], function () { //admin
 
         //Quản trị
         Route::prefix('quan-tri')->group(function () {
@@ -75,15 +86,7 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::post('/xu-ly-sua/{id}', [MovieTypeController::class, 'update'])->name('movie-type.update');
                 Route::get('/xoa/{id}', [MovieTypeController::class, 'destroy'])->name('movie-type.destroy');
             });
-            //Phim
-            Route::prefix('/suat-chieu')->name('showtime')->group(function () {
-                Route::get('/', [ShowTimeController::class, 'index'])->name('index');
-                Route::get('/them-moi', [ShowTimeController::class, 'create'])->name('add');
-                Route::post('xu-ly-them', [ShowTimeController::class, 'store'])->name('store');
-                Route::get('/chinh-sua/{movie}', [ShowTimeController::class, 'edit'])->name('edit');
-                Route::post('/xu-ly-sua/{movie}', [ShowTimeController::class, 'update'])->name('update');
-                Route::get('/xoa/{movie}', [ShowTimeController::class, 'destroy'])->name('destroy');
-            });
+            
             //Phim
             Route::prefix('/phim')->group(function () {
                 Route::get('/', [MovieController::class, 'index'])->name('movie.index');
@@ -105,6 +108,7 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
             //Loại tài khoản
             Route::prefix('/account')->group(function () {
                 Route::get('/', [AccountController::class, 'index'])->name('account.index');
+                Route::get('/khach-hang', [AccountController::class, 'indexClient'])->name('account.indexClient');
                 Route::get('/them-moi', [AccountController::class, 'create'])->name('account.add');
                 Route::post('xu-ly-them', [AccountController::class, 'register'])->name('account.store');
                 Route::get('/chinh-sua/{user}', [AccountController::class, 'edit'])->name('account.edit');
@@ -188,9 +192,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [FoodController::class, 'index'])->name('food.index');
                 Route::get('/them-moi', [FoodController::class, 'create'])->name('food.add');
                 Route::post('xu-ly-them', [FoodController::class, 'store'])->name('food.store');
-                Route::get('/chinh-sua/{id}', [FoodController::class, 'edit'])->name('food.edit');
-                Route::post('/xu-ly-sua/{id}', [FoodController::class, 'update'])->name('food.update');
-                Route::get('/xoa/{id}', [FoodController::class, 'destroy'])->name('food.destroy');
+                Route::get('/chinh-sua/{food}', [FoodController::class, 'edit'])->name('food.edit');
+                Route::post('/xu-ly-sua/{food}', [FoodController::class, 'update'])->name('food.update');
+                Route::get('/xoa/{food}', [FoodController::class, 'destroy'])->name('food.destroy');
             });
             //Phòng
             Route::prefix('/room')->group(function () {
@@ -228,15 +232,6 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::post('/xu-ly-sua/{id}', [TypeShowTimeController::class, 'update'])->name('type-showtime.update');
                 Route::get('/xoa/{id}', [TypeShowTimeController::class, 'destroy'])->name('type-showtime.destroy');
             });
-            //Suất chiếu
-            Route::prefix('/showtime')->group(function () {
-                Route::get('/', [ShowTimeController::class, 'index'])->name('showtime.index');
-                Route::get('/them-moi', [ShowTimeController::class, 'create'])->name('showtime.add');
-                Route::post('xu-ly-them', [ShowTimeController::class, 'store'])->name('showtime.store');
-                Route::get('/chinh-sua/{id}', [ShowTimeController::class, 'edit'])->name('showtime.edit');
-                Route::post('/xu-ly-sua/{id}', [ShowTimeController::class, 'update'])->name('showtime.update');
-                Route::get('/xoa/{id}', [ShowTimeController::class, 'destroy'])->name('showtime.destroy');
-            });
             //Phương thức thanh toán
             Route::prefix('/method_payment')->group(function () {
                 Route::get('/', [MethodPaymentController::class, 'index'])->name('method_payment.index');
@@ -257,6 +252,7 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
             });
         });
     });
+
 });
 
 Route::get('/login', function () {

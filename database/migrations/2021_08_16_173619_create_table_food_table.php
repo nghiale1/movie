@@ -16,6 +16,7 @@ class CreateTableFoodTable extends Migration
         Schema::create('food', function (Blueprint $table) {
             $table->bigIncrements('id_food');
             $table->string('food_name');
+            $table->string('food_pic')->nullable();
             $table->float('food_price');
             $table->boolean('status');
             $table->timestamps();

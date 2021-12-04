@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Banner;
+use App\Models\Food;
 use App\Models\Movie;
 use App\Models\Others\Notification;
 use Carbon\Carbon;
@@ -78,6 +79,20 @@ class CommonService
                 $storagePath = Storage::disk('banner')->put($path, $request->file('banner_img'));
                 $banner->update([
                     'banner_img' => 'banner/'.$storagePath,
+                ]);
+        }
+    }
+
+    public function uploadFood(Food $food, $request)
+    {
+        if ($request->hasFile('food_pic')) {
+                $path = $this->getDateFolderCreate(date('Y-m-d H:i:s'));
+    
+                Storage::disk('food')->makeDirectory($path);
+    
+                $storagePath = Storage::disk('food')->put($path, $request->file('food_pic'));
+                $food->update([
+                    'food_pic' => 'food/'.$storagePath,
                 ]);
         }
     }

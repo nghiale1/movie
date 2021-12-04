@@ -13,7 +13,13 @@ class AccountController extends Controller
 {
     public function index()
     {
-        $user=User::all();
+        $user=User::where('id_type', '<>', 3)->get();
+
+        return view('admin.account.index',compact('user'));
+    }
+    public function indexClient()
+    {
+        $user=User::where('id_type',3)->get();
 
         return view('admin.account.index',compact('user'));
     }

@@ -136,4 +136,14 @@ class User extends AuthUser
 		return $this->belongsToMany(Voucher::class, 'user_have_voucher', 'id_user', 'id_voucher')
 					->withTimestamps();
 	}
+
+	/**
+	 * Get the branch that owns the User
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function branch()
+	{
+		return $this->belongsTo(Branch::class, 'id_branch', 'id_branch');
+	}
 }

@@ -53,6 +53,12 @@ return [
             'url' => '/banner',
             'visibility' => 'public',
         ],
+        'food' => [
+            'driver' => 'local',
+            'root' => public_path('/food'),
+            'url' => '/food',
+            'visibility' => 'public',
+        ],
         'trailer' => [
             'driver' => 'local',
             'root' => public_path('/trailer'),

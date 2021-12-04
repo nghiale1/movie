@@ -72,12 +72,21 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('account.index') }}" class="nav-link
-                    @if (Request::segment(2) == 'tai-khoan')
+                    @if (Request::segment(2) == 'account')
                         active
                     @endif
                     ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Tài khoản</p>
+                        <p>Tài khoản nhân viên</p>
+                    </a>
+                </li> <li class="nav-item">
+                    <a href="{{ route('account.indexClient') }}" class="nav-link
+                    @if (Request::segment(2) == 'khach-hang')
+                        active
+                    @endif
+                    ">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Tài khoản khách hàng</p>
                     </a>
                 </li>
                 <li class="nav-header">QUẢN LÝ PHIM</li>
@@ -129,6 +138,16 @@
                     ">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Ngôn ngữ phim</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('food.index') }}" class="nav-link
+                    @if (Request::segment(2) == 'food')
+                        active
+                    @endif
+                    ">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Thức ăn</p>
                     </a>
                 </li>
                 <li class="nav-item">

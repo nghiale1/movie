@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\CommonService;
+use App\Models\Food;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -36,24 +38,15 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        $food_name = $request->branch_name;
-        $food_price = $request->food_price;
-        $image_food = $request->image_food;
-        $status = $request->status;
         try {
-            //code...
-            DB::table('branch')->insert(
-                [
-                    'food_name' => $food_name,
-                    'food_price' => $food_price,
-                    'image_food' => $image_food,
-                    '$status' => $status
-                ]
-            );
+           $food=Food::create($request->all());
+            CommonService::uploadFood($food, $request);
+
             Session::flash('success','Thêm mới thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             Session::flash('error','Lỗi! Thêm mới không thành công'.'--class FoodController_store');
             return redirect()->back();
         }
@@ -76,12 +69,10 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Food $food)
     {
         try {
-            //code...
-            $foodDetail = DB::table('food')->where('id_food', $id)->first();
-            return view('admin.food.edit', compact('foodDetail'));
+            return view('admin.food.edit', compact('food'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -96,22 +87,13 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Food $food)
     {
-        $food_name = $request->food_name;
-        $food_price = $request->food_price;
-        $image_food = $request->image_food;
-        $status = $request->status;
         try {
             //code...
-            DB::table('food')->where('id_food', $id)->update(
-                [
-                    'food_name' => $food_name,
-                    'food_price' => $food_price,
-                    'image_food' => $image_food,
-                    'status' => $status
-                ]
-            );
+            $food->update($request->all());
+            CommonService::uploadFood($food, $request);
+
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -127,11 +109,11 @@ class FoodController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Food $food)
     {
         try {
             //code...
-            DB::table('food')->where('id_food', $id)->delete();
+            $food->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

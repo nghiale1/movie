@@ -32,15 +32,6 @@
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="id_mv">Chi nhánh: </label>
-                            <select class="form-control" name="id_typest">
-                                <option>Chọn chi nhánh</option>
-                                @foreach ($branch as $item)
-                                  <option value="{{ $item->id_branch }}"> {{ $item->branch_name }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="id_mv">Phim: </label>
                             <select class="form-control" name="id_mv">
                                 <option>Chọn loại suất chiếu</option>
@@ -58,9 +49,19 @@
                                 @endforeach
                             </select>
                         </div>
+                        <input type="hidden" name="id_branch" value="{{$branch->id_branch}}">
+                        <div class="form-group">
+                            <label for="id_room">Phòng chiếu: </label>
+                            <select class="form-control" name="id_room">
+                                <option>Chọn phòng</option>
+                                @foreach ($room as $item)
+                                  <option value="{{ $item->id_room }}"> {{ $item->room_name }} </option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="datetime">Ngày và giờ chiếu:</label>
-                            <input type="datetime" class="form-control" id="datetime" name="datetime">
+                            <input type="datetime-local" class="form-control" id="datetime" name="datetime">
                         </div>
                     </div>
                     <!-- /.card-body -->

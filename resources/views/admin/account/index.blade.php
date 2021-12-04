@@ -31,10 +31,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
-                        <th>Email</th>
                         <th>Loại tài khoản</th>
-                        <th>Loại thành viên</th>
-                        <th>Điểm thành viên</th>
                         <th>Họ tên</th>
                         <th>Ngày sinh</th>
                         <th>Số điện thoại</th>
@@ -46,16 +43,13 @@
                     @foreach ($user as $item)
                     <tr>
                         <td>{{ $stt++ }}</td>
-                        <td>{{ $item->email }}</td>
-                        <td>{{ $item->type_name }}</td>
-                        <td>{{ $item->typemem_name }}</td>
-                        <td>{{ $item->points }}</td>
+                        <td>{{ $item->type_acc->type_name }}</td>
                         <td>{{ $item->name }}</td>
-                        <td>{{ $item->bithday }}</td>
+                        <td>{{ $item->birthday }}</td>
                         <td>{{ $item->phone_number }}</td>
                         <td>
-                            <a href="{{ route('user.edit', ['id'=>$item->id_user]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('user.destroy', ['id'=>$item->id_user]) }}" class="btn btn-danger del">Xóa</a>
+                            <a href="{{ route('account.edit', $item->id_user) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('account.destroy', $item->id_user) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

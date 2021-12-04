@@ -7,10 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{route('auth')}}" method="post">
+    <form action="{{route('account.auth')}}" method="post">
         @csrf 
-        <input type="text" name="username">
-        <input type="text" name="password">
+        <input type="text" name="username" value="GVA">
+        <input type="text" name="password" value="GVA">
         <button type="submit">Submit</button>
     </form>
     form

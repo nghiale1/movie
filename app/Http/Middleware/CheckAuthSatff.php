@@ -20,8 +20,7 @@ class CheckAuthSatff
             return $next($request);
         }
         else{
-
-            dd("Không có page register cho nhân viên");
+return back();
         }
     }
 }

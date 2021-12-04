@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -16,7 +17,7 @@ class AuthController extends Controller
         ];
         // dd($arrUser);
         if (Auth::attempt($arrUser)) {
-            return redirect()->route("customer.home");
+            return redirect()->route('movie.index');
         }
         else {
             return back();

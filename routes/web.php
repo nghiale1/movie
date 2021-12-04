@@ -45,11 +45,11 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('customer.index');
+    return view('client.template.master');
 });
 
 Route::middleware(['CheckAuthSatff'])->group(function () {
-    Route::group(['middleware' => 'CheckRole:3'], function () { //quản lý kho
+    Route::group(['middleware' => 'CheckRole:1'], function () { //quản lý kho
 
         //Quản trị
         Route::prefix('quan-tri')->group(function () {
@@ -103,9 +103,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [AccountController::class, 'index'])->name('account.index');
                 Route::get('/them-moi', [AccountController::class, 'create'])->name('account.add');
                 Route::post('xu-ly-them', [AccountController::class, 'register'])->name('account.store');
-                Route::get('/chinh-sua/{id}', [AccountController::class, 'edit'])->name('account.edit');
-                Route::post('/xu-ly-sua/{id}', [AccountController::class, 'update'])->name('account.update');
-                Route::get('/xoa/{id}', [AccountController::class, 'destroy'])->name('account.destroy');
+                Route::get('/chinh-sua/{user}', [AccountController::class, 'edit'])->name('account.edit');
+                Route::post('/xu-ly-sua/{user}', [AccountController::class, 'update'])->name('account.update');
+                Route::get('/xoa/{user}', [AccountController::class, 'destroy'])->name('account.destroy');
             });
             //Bài đăng
             Route::prefix('/article')->group(function () {
@@ -258,4 +258,4 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
 Route::get('/login', function () {
     return view('admin.auth.login');
 })->name('login');
-Route::post('auth', [AuthController::class, 'login'])->name('auth');
+Route::post('auth', [AuthController::class, 'login'])->name('account.auth');

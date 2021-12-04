@@ -60,7 +60,6 @@ class User extends AuthUser
 	];
 
 	protected $dates = [
-		'birthday',
 		'email_verified_at'
 	];
 
@@ -77,7 +76,6 @@ class User extends AuthUser
 		'birthday',
 		'sex',
 		'address',
-		'date_of_birth',
 		'phone_number',
 		'email_verified_at',
 		'points',

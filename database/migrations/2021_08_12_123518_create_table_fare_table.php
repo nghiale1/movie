@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableTicketMvTable extends Migration
+class CreateTableFareTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateTableTicketMvTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_mv', function (Blueprint $table) {
-            $table->bigIncrements('id_ticketmv');
+        Schema::create('fare', function (Blueprint $table) {
+            $table->bigIncrements('id_fare');
             $table->float('price');
-            $table->bigInteger('id_mv')->unsigned();
-            $table->foreign('id_mv')->references('id_mv')->on('movie')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateTableTicketMvTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_mv');
+        Schema::dropIfExists('fare');
     }
 }

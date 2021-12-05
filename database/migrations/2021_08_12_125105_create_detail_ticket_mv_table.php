@@ -19,8 +19,6 @@ class CreateDetailTicketMvTable extends Migration
             $table->foreign('id_st')->references('id_st')->on('showtime')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_seat')->unsigned();
             $table->foreign('id_seat')->references('id_seat')->on('seat')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('id_ticketmv')->unsigned();
-            $table->foreign('id_ticketmv')->references('id_ticketmv')->on('ticket_mv')->onDelete('cascade')->onUpdate('cascade');
             // $table->integer('dtmv_status')->default();
             $table->timestamps();
         });

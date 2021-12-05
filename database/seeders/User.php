@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 use DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
-class Banner extends Seeder
+class User extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,24 +14,13 @@ class Banner extends Seeder
      */
     public function run()
     {
-            DB::table('user')->insert([
+            DB::table('users')->insert([
                 [
-                    'username',
-                    'email',
-                    'password',
-                    'name',
-                    'birthday',
-                    'sex',
-                    'address',
-                    'date_of_birth',
-                    'phone_number',
-                    'email_verified_at',
-                    'points',
-                    'id_type',
-                    'id_typemem',
-                    'id_voucher',
-                    'remember_token',
-                    'id_branch'
+                    'username'=>'admin',
+                    'password'=>Hash::make('admin'),
+                    'name'=>'admin',
+                    'id_type'=>1,
+                    'id_branch'=>1
                 ]
                
             ]);

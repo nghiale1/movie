@@ -29,6 +29,7 @@ class Movie extends Seeder
                     'id_typemv'=>1,
                     'id_language'=>3,
                     'id_format'=>1,
+                    'id_user'=>1
                 ],
                 [
                     'mv_name'=>'ÁN TỬ TRÊN XE',
@@ -44,6 +45,7 @@ class Movie extends Seeder
                     'date_end'=>'2021-12-30',
                     'id_typemv'=>1,
                     'id_language'=>3,
+                    'id_user'=>1,
                     'id_format'=>1,
                 ],[
                     'mv_name'=>'HUNG THẦN TRẮNG',
@@ -59,6 +61,7 @@ class Movie extends Seeder
                     'date_end'=>'2021-12-30',
                     'id_typemv'=>5,
                     'id_language'=>3,
+                    'id_user'=>1,
                     'id_format'=>1,
                 ],
                 

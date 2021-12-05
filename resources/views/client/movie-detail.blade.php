@@ -51,7 +51,7 @@
                             </li>
                         </ul>
                         <p class="description">{{ $movie->mv_content }}</p>
-                        <a href="#" class="add-btn">+ MUA VÉ</a>
+                        <a href="{{ route('movie.booking', ['id'=>$movie->id_mv]) }}" class="add-btn">+ MUA VÉ</a>
 
                         {{-- <div class="rate-box">
                             <a href="#"><i class="lni lni-thumbs-up"></i></a> <a href="#"><i

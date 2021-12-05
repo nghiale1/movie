@@ -44,7 +44,9 @@
 @yield('header')
 {{-- @include('client.template.slider') --}}
 <!-- end slider -->
-<main>
+<main style="@if(Request::segment(2) == 'mua-ve')
+margin-top: 100px !important;
+@endif">
   @yield('content')
 
 
@@ -54,5 +56,6 @@
 
 <!-- JS FILES -->
 @include('client.template.js')
+@stack('booking')
 </body>
 </html>

@@ -263,4 +263,7 @@ Route::prefix('/')->group(function () {
     Route::get('/', [MainController::class,'index'])->name('index');
     Route::get('/phim', [MainController::class,'movieList'])->name('movie.list');
     Route::get('/{id}/phim', [MainController::class,'movieDetail'])->name('movie.detail');
+    Route::get('/{id}/mua-ve', [MainController::class,'booking'])->name('movie.booking');
+    Route::get('/get-room/{idBranch}/{idMovie}', [MainController::class,'getRoomAjax']);
+    Route::get('/chon-ghe/{idShowtime}', [MainController::class,'getSeat']);
 });

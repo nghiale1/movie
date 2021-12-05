@@ -13,9 +13,9 @@ class ShowTime extends Seeder
      */
     public function run()
     {
-        for ($a=16; $a < 30; $a++) { 
-            for ($i=1; $i < 3; $i++) { 
-            for ($j=1; $j < 3; $j++) { 
+        for ($a=16; $a < 30; $a++) {
+            for ($i=1; $i < 3; $i++) {
+            for ($j=1; $j < 3; $j++) {
                 DB::table('showtime')->insert([
                     [
                         'datetime'=>'2021-11-'.$a.' 09:00:00',
@@ -43,7 +43,7 @@ class ShowTime extends Seeder
                         'id_room'=>$i,
                         'id_typest'=>1
                     ],
-    
+
                     [
                         'datetime'=>'2021-11-'.$a.' 14:00:00',
                         'id_mv'=>$j,
@@ -89,6 +89,6 @@ class ShowTime extends Seeder
             }
             }
         }
-        
+
     }
 }

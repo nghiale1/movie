@@ -16,6 +16,7 @@ class CreateTableSeatTable extends Migration
         Schema::create('seat', function (Blueprint $table) {
             $table->bigIncrements('id_seat');
             $table->string('seat_name');
+            $table->integer('seat_row')->nullable();
             $table->bigInteger('id_typeseat')->unsigned();
             $table->foreign('id_typeseat')->references('id_typeseat')->on('type_seat')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_room')->unsigned();

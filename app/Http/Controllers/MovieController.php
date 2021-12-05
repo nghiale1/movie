@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\CommonService;
+use App\Models\Format;
+use App\Models\Language;
+use App\Models\Movie;
+use App\Models\TypeMovie;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Storage;
 use Session;
+
 class MovieController extends Controller
 {
     /**
@@ -15,9 +22,9 @@ class MovieController extends Controller
     public function index()
     {
         $movie = DB::table('movie')
-            ->join('type_movie','type_movie.id_typemv','movie.id_typemv')
-            ->join('language','language.id_language','movie.id_language')
-            ->join('format','format.id_format','movie.id_format')
+            ->join('type_movie', 'type_movie.id_typemv', 'movie.id_typemv')
+            ->join('language', 'language.id_language', 'movie.id_language')
+            ->join('format', 'format.id_format', 'movie.id_format')
             ->get();
         return view('admin.movie.index', compact('movie'));
     }
@@ -32,7 +39,7 @@ class MovieController extends Controller
         $type_movie = DB::table('type_movie')->get();
         $language = DB::table('language')->get();
         $format = DB::table('format')->get();
-        return view('admin.movie.add', compact('type_movie','language', 'format'));
+        return view('admin.movie.add', compact('type_movie', 'language', 'format'));
     }
 
     /**
@@ -43,59 +50,20 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        $id_typemv = $request->id_typemv;
-        $id_language = $request->id_language;
-        $id_format = $request->id_format;
-        $mv_name = $request->mv_name;
-        $director = $request->director;
-        $performers = $request->performers;
-        $time_mv = $request->time_mv;
-        $mv_content = $request->mv_content;
-        $image = $request->image;
-        $trailer = $request->trailer;
-        $made_in = $request->made_in;
-        $sub = $request->sub;
-        $dup = $request->dup;
-        $date_start = $request->date_start;
-        $date_end = $request->date_end;
+        DB::beginTransaction();
         try {
-            DB::table('movie')->insert(
-                [
-                    'id_typemv' => $id_typemv,
-                    'id_language' => $id_language,
-                    'id_format' => $id_format,
-                    'mv_name' => $mv_name,
-                    'director' => $director,
-                    'performers' => $performers,
-                    'time_mv' => $time_mv,
-                    'mv_content' => $mv_content,
-                    'image' => $image,
-                    'trailer' => $trailer,
-                    'made_in' => $made_in,
-                    'sub' => $sub,
-                    'dup' => $dup,
-                    'date_start' => $date_start,
-                    'date_end' => $date_end
-                ]
-            );
-            Session::flash('success','Thêm mới thành công');
+            $movie = Movie::create($request->all());
+            CommonService::uploadPoster($movie, $request);
+            CommonService::uploadTrailer($movie, $request);
+            Session::flash('success', 'Thêm mới thành công');
+            DB::commit();
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
-            Session::flash('error','Lỗi! Thêm mới không thành công'.'--class MovieController_store');
+            DB::rollback();
+            Session::flash('error', 'Lỗi! Thêm mới không thành công' . '--class MovieController_store');
             return redirect()->back();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -104,15 +72,16 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Movie $movie)
     {
         try {
-            //code...
-            $MovieDetail = DB::table('movie')->where('id_mv', $id)->first();
-            return view('admin.movie.edit', compact('MovieDetail'));
+            $type_movie = TypeMovie::all();
+            $language = Language::all();
+            $format = Format::all();
+            return view('admin.movie.edit', compact('movie', 'type_movie', 'language', 'format'));
         } catch (\Throwable $th) {
             //throw $th;
-            Session::flash('error','Không vào được trang chi tiết');
+            Session::flash('error', 'Không vào được trang chi tiết');
             return redirect()->back();
         }
     }
@@ -124,48 +93,21 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Movie $movie)
     {
-        $id_typemv = $request->id_typemv;
-        $id_language = $request->id_language;
-        $id_format = $request->id_format;
-        $mv_name = $request->mv_name;
-        $director = $request->director;
-        $performers = $request->performers;
-        $time_mv = $request->time_mv;
-        $mv_content = $request->mv_content;
-        $image = $request->image;
-        $trailer = $request->trailer;
-        $made_in = $request->made_in;
-        $sub = $request->sub;
-        $dup = $request->dup;
-        $date_start = $request->date_start;
-        $date_end = $request->date_end;
         try {
-            //code...
-            DB::table('movie')->where('id_mv', $id)->update(
-                [
-                    'id_typemv' => $id_typemv,
-                    'id_language' => $id_language,
-                    'id_format' => $id_format,
-                    'mv_name' => $mv_name,
-                    'director' => $director,
-                    'performers' => $performers,
-                    'time_mv' => $time_mv,
-                    'mv_content' => $mv_content,
-                    'image' => $image,
-                    'trailer' => $trailer,
-                    'made_in' => $made_in,
-                    'sub' => $sub,
-                    'dup' => $dup,
-                    'date_start' => $date_start,
-                    'date_end' => $date_end
-                ]
+            DB::beginTransaction();
+            $movie->update(
+                $request->all()
             );
+            CommonService::uploadPoster($movie, $request);
+            CommonService::uploadTrailer($movie, $request);
             Session::flash('success', 'Sửa dữ liệu thành công');
+            DB::commit();
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            DB::rollback();
             Session::flash('error', 'Sửa dữ liệu không thành công');
             return redirect()->back();
         }
@@ -177,11 +119,10 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
         try {
-            //code...
-            DB::table('movie')->where('id_mv', $id)->delete();
+            $movie->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

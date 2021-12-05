@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeShowtime as ModelsTypeShowtime;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -14,7 +15,7 @@ class TypeShowTimeController extends Controller
      */
     public function index()
     {
-        $type_showtime = DB::table('type_showtime')->orderBy('id_typest','desc')->get();
+        $type_showtime = ModelsTypeShowtime::orderBy('id_typest','desc')->get();
         return view('admin.type_showtime.index', compact('type_showtime'));
     }
 

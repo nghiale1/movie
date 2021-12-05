@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\CommonService;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 use Session;
 class BannerController extends Controller
 {
@@ -14,10 +17,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        $banner = DB::table('banner')
-            ->join('users','users.id_user','banner.id_user')
-            ->join('movie','movie.id_mv','banner.id_mv')
-            ->get();
+        $banner = Banner::all();
         return view('admin.movie-banner.index', compact('banner'));
     }
 
@@ -41,36 +41,20 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        $id_user = $request->id_user;
-        $id_movie = $request->id_movie;
-        $banner_img = $request->banner_img;
         try {
-            //code...
-            DB::table('type_member')->insert(
-                [
-                    'id_user' => $id_user,
-                    'id_movie' => $id_movie,
-                    'banner_img' => $banner_img
-                ]
-            );
+            DB::beginTransaction();
+            $banner=Banner::create($request->all());
+            CommonService::uploadBanner($banner, $request);
+            
             Session::flash('success','Thêm mới thành công');
+            DB::commit();
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            DB::rollback();
             Session::flash('error','Lỗi! Thêm mới không thành công'.'--class BannerController_store');
             return redirect()->back();
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -79,12 +63,12 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Banner $banner)
     {
         try {
-            //code...
-            $BannerDetail = DB::table('banner')->where('id_banner', $id)->first();
-            return view('admin.movie-banner.edit', compact('BannerDetail'));
+        $movie = DB::table('movie')->get();
+
+            return view('admin.movie-banner.edit', compact('banner','movie'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -99,24 +83,16 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Banner $banner)
     {
-        $id_user = $request->id_user;
-        $id_movie = $request->id_movie;
-        $banner_img = $request->banner_img;
         try {
-            //code...
-            DB::table('banner')->where('id_banner', $id)->update(
-                [
-                    'id_user' => $id_user,
-                    'id_movie' => $id_movie,
-                    'banner_img' => $banner_img
-                ]
-            );
+            $banner->update($request->all());
+            CommonService::uploadBanner($banner, $request);
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             Session::flash('error', 'Sửa dữ liệu không thành công');
             return redirect()->back();
         }
@@ -128,11 +104,11 @@ class BannerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Banner $banner)
     {
         try {
             //code...
-            DB::table('banner')->where('id_banner', $id)->delete();
+            $banner->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

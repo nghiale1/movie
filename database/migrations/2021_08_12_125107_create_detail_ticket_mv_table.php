@@ -15,6 +15,7 @@ class CreateDetailTicketMvTable extends Migration
     {
         Schema::create('detail_ticket_mv', function (Blueprint $table) {
             $table->id('dtmv_id');
+            $table->integer('dtmv_price');
             $table->bigInteger('id_st')->unsigned();
             $table->foreign('id_st')->references('id_st')->on('showtime')->onDelete('cascade')->onUpdate('cascade');
             $table->bigInteger('id_seat')->unsigned();

@@ -28,7 +28,7 @@
                                             @if ($find > 0)
                                                 <a href="#" disable class="btn btn-danger">{{ $item->seat_name }}</a>
                                             @else
-                                                <a href="#" data-id-seat="{{ $item->id_seat }}" class="btn btn-success choseSeat">{{ $item->seat_name }}</a>
+                                                <a href="#" data-id-seat="{{ $item->id_seat }}" data-name-seat="{{ $item->seat_name }}" class="btn btn-success choseSeat">{{ $item->seat_name }}</a>
                                             @endif
                                         </div>
                                         @if ($item->seat_row > $row)
@@ -50,24 +50,24 @@
                         </div> --}}
                         <div class="col-lg-12">
                             <h5>Ghế đã chọn</h5>
-                            <div class="timeRoom row">
-
+                            <div class="paymentItem row">
+                                <ul>
+                                    <li><strong>Vé: </strong><span class="tiketBuy"></span></li>
+                                    <li><strong>Tổng tiền:</strong> <span class="tiketTotal"></span></li>
+                                </ul>
                             </div>
-                            {{-- @foreach ($branch as $item)
-                                <a href="" data-idBranch="{{ $item->id_branch }}" class="btn btn-warning branch">{{ $item->branch_name }}</a>
-                            @endforeach --}}
                         </div>
                     </div>
                     <br>
                     <br>
                     <br>
                     <div class="movie-info-box">
-                        <a href="#" class="add-btn">+ MUA VÉ</a>
-
-                        {{-- <div class="rate-box">
-                            <a href="#"><i class="lni lni-thumbs-up"></i></a> <a href="#"><i
-                                    class="lni lni-thumbs-down"></i></a> <strong>61% liked this film</strong>
-                        </div> --}}
+                        <form id="confirmSeat" method="post">
+                            @csrf
+                            <input type="text" name="seatChosed[]" hidden class="seatChosed">
+                            <button type="submit" class="add-btn">+ XÁC NHẬN</button>
+                        </form>
+                        <button type="submit" class="add-btn">THANH TOÁN</button>
                     </div>
                     <!-- end movie-info-box -->
                 </div>
@@ -100,11 +100,59 @@
         <script>
             $(document).ready(function () {
                 const base_url = window.location.origin;
+                const seat = [];
+                const nameSeat = [];
                 $('.choseSeat').click(function (e) {
                     e.preventDefault();
-                    console.log("clicked");
+                    $(this).data('id-seat');
+                    console.log($(this).data('id-seat'));
+                    var seatID = $(this).data('id-seat');
+                    var nameSeatItem = $(this).data('name-seat');
+                    if(seat.includes(seatID)) {
+                        // alert("da chon ghe nay roi");
+                        removeElement(seat, seatID);
+                        removeElement(nameSeatItem, nameSeat);
+                        $(this).css('background-color','#28a745');
+                    }else {
+                        seat.push($(this).data('id-seat'));
+                        nameSeat.push($(this).data('name-seat'));
+                        $(this).css('background-color','red');
+                    }
+                    console.log(nameSeat);
+                    $('.seatChosed').val(seat);
+                });
+
+
+                $("#confirmSeat").submit(function(e) {
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                var form = $(this);
+                // var url = form.attr('action');
+                $('.itemTiketBuy').remove();
+                $('.itemTiketBuyTotal').remove();
+                $.ajax({
+                    type: "POST",
+                    url: base_url+"/xac-nhan-ghe",
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function(data)
+                        {
+                            console.log(data);// show response from the php script.
+                            var content = '<span class="itemTiketBuy">'+ nameSeat+ ', ' +'</span>';
+                            var totalPrice = '<span class="itemTiketBuyTotal">'+ data +'</span>';
+                            $('.tiketBuy').append(content);
+                            $('.tiketTotal').append(totalPrice);
+                        }
+                    });
                 });
             });
+
+            function removeElement(array, elem) {
+                var index = array.indexOf(elem);
+                if (index > -1) {
+                    array.splice(index, 1);
+                }
+            }
         </script>
     @endpush
 @endsection

@@ -75,4 +75,23 @@ class MainController extends Controller
             return back();
         }
     }
+
+
+    public function toTal(Request $request) {
+        // for
+        // return response()->json($request->seatChosed, 200);
+        $arrSeat = $request->seatChosed;
+        $arrQuery = explode(',', $arrSeat[0]);
+        // return response()->json($arrQuery, 200);
+        $seat = DB::table('seat')->join('type_seat','type_seat.id_typeseat','seat.id_typeseat')
+        ->whereIn('seat.id_seat',$arrQuery)->get();
+        $getPriceDefault = DB::table('fare')->first();
+        $seatCount = DB::table('seat')->join('type_seat','type_seat.id_typeseat','seat.id_typeseat')
+        ->whereIn('seat.id_seat',$arrQuery)->count();
+
+        $totalPrice = $getPriceDefault->price * $seatCount;
+        return response()->json(number_format($totalPrice), 200);
+        // $getTotal =
+        return response()->json($seat, 200);
+    }
 }

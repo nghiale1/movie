@@ -273,6 +273,7 @@ Route::prefix('/')->group(function () {
             Route::get('/{id}/mua-ve', [MainController::class,'booking'])->name('movie.booking');
             Route::get('/get-room/{idBranch}/{idMovie}', [MainController::class,'getRoomAjax']);
             Route::get('/chon-ghe/{idShowtime}', [MainController::class,'getSeat']);
+            Route::post('/xac-nhan-ghe', [MainController::class,'toTal']);
         });
     });
 });

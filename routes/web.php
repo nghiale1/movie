@@ -263,7 +263,16 @@ Route::prefix('/')->group(function () {
     Route::get('/', [MainController::class,'index'])->name('index');
     Route::get('/phim', [MainController::class,'movieList'])->name('movie.list');
     Route::get('/{id}/phim', [MainController::class,'movieDetail'])->name('movie.detail');
-    Route::get('/{id}/mua-ve', [MainController::class,'booking'])->name('movie.booking');
-    Route::get('/get-room/{idBranch}/{idMovie}', [MainController::class,'getRoomAjax']);
-    Route::get('/chon-ghe/{idShowtime}', [MainController::class,'getSeat']);
+
+
+    //Đăng nhập
+    Route::get('/dang-nhap', [MainController::class,'login'])->name('user.login');
+    Route::post('/xu-ly-dang-nhap', [MainController::class,'handleLogin'])->name('user.handle.login');
+    Route::middleware(['CheckAuthSatff'])->group(function () {
+        Route::group(['middleware' => 'CheckRole:3'], function () { //nhân viên
+            Route::get('/{id}/mua-ve', [MainController::class,'booking'])->name('movie.booking');
+            Route::get('/get-room/{idBranch}/{idMovie}', [MainController::class,'getRoomAjax']);
+            Route::get('/chon-ghe/{idShowtime}', [MainController::class,'getSeat']);
+        });
+    });
 });

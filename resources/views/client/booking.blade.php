@@ -1,23 +1,10 @@
 @extends('client.template.master')
 @section('header')
-    <header class="page-header single" data-background="images/movie-poster-bg.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-player">
-                        <video src="{{ asset($movie->trailer) }}" poster="images/movie-poster.jpg" controls
-                            playsinline></video
-                    </div>
-                    <!-- end video-player -->
-                </div>
-                <!-- end col-12 -->
-            </div>
-            <!-- end col-12 -->
-            <!-- end row -->
-        </div>
-        <!-- end container -->
-    </header>
-    <!-- end header -->
+<header class="page-header">
+    <div class="container">
+        <h1>Chọn khung giờ</h1>
+    </div>
+</header>
 @show
 @section('content')
     <section class="content-section" data-background="#ffffff">
@@ -25,26 +12,30 @@
 
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="movie-info-box">
-
-
-                        {{-- <div class="rate-box">
-                            <a href="#"><i class="lni lni-thumbs-up"></i></a> <a href="#"><i
-                                    class="lni lni-thumbs-down"></i></a> <strong>61% liked this film</strong>
-                        </div> --}}
+                    <div class="col-lg-12">
+                        <h5>Khung giờ</h5>
+                        @for ($i = 0; $i < 7; $i++)
+                            @php
+                                $date = Carbon\Carbon::now();
+                            @endphp
+                            <a href="" class="btn btn-success">{{ $date->addDays($i)->format("d-m-Y") }}</a>
+                        @endfor
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="movie-info-box">
-                        <a href="#" class="add-btn">+ MUA VÉ</a>
-
-                        {{-- <div class="rate-box">
-                            <a href="#"><i class="lni lni-thumbs-up"></i></a> <a href="#"><i
-                                    class="lni lni-thumbs-down"></i></a> <strong>61% liked this film</strong>
-                        </div> --}}
+                    <div class="col-lg-12">
+                        <h5>Rạp</h5>
+                        @foreach ($branch as $item)
+                            <a href="#" data-branch="{{ $item->id_branch }}" data-movie="{{ $movie->id_mv }}" class="btn btn-warning branch">{{ $item->branch_name }}</a>
+                        @endforeach
                     </div>
-                    <!-- end movie-info-box -->
+                    <div class="col-lg-12">
+                        <h5>Khung giờ</h5>
+                        <div class="timeRoom row">
+
+                        </div>
+                        {{-- @foreach ($branch as $item)
+                            <a href="" data-idBranch="{{ $item->id_branch }}" class="btn btn-warning branch">{{ $item->branch_name }}</a>
+                        @endforeach --}}
+                    </div>
                 </div>
                 <!-- end col-8 -->
                 <div class="col-lg-4">
@@ -63,32 +54,6 @@
             </div>
             <!-- end col-12 -->
             <!-- end row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h5>Khung giờ</h5>
-                    @for ($i = 0; $i < 7; $i++)
-                        @php
-                            $date = Carbon\Carbon::now();
-                        @endphp
-                        <a href="" class="btn btn-success">{{ $date->addDays($i)->format("d-m-Y") }}</a>
-                    @endfor
-                </div>
-                <div class="col-lg-12">
-                    <h5>Rạp</h5>
-                    @foreach ($branch as $item)
-                        <a href="#" data-branch="{{ $item->id_branch }}" data-movie="{{ $movie->id_mv }}" class="btn btn-warning branch">{{ $item->branch_name }}</a>
-                    @endforeach
-                </div>
-                <div class="col-lg-12">
-                    <h5>Khung giờ</h5>
-                    <div class="timeRoom row">
-
-                    </div>
-                    {{-- @foreach ($branch as $item)
-                        <a href="" data-idBranch="{{ $item->id_branch }}" class="btn btn-warning branch">{{ $item->branch_name }}</a>
-                    @endforeach --}}
-                </div>
-            </div>
         </div>
         <!-- end container -->
     </section>
@@ -101,6 +66,7 @@
                 $('.branch').click(function (e) {
                     e.preventDefault();
                     console.log($(this).data('branch'));
+                    $('.itemTime').remove();
                     var idBranch = $(this).data('branch');
                     var idMovie = $(this).data('movie');
                     console.log(idMovie);
@@ -114,7 +80,7 @@
                             var timeZone = '';
                             for (let index = 0; index < response.length; index++) {
                                 const element = response[index];
-                                timeZone += '<div class="col-sm-1"><a href="'+base_url+'/chon-ghe/'+response[index].id_st+'" class="btn btn-warning branch" style="margin-right: 5px; margin-bottom: 5px;">'+ response[index].datetime.slice(11,16) +'</a></div>';
+                                timeZone += '<div class="col-sm-1 itemTime"><a href="'+base_url+'/chon-ghe/'+response[index].id_st+'" class="btn btn-warning branch" style="margin-right: 5px; margin-bottom: 5px;">'+ response[index].datetime.slice(11,16) +'</a></div>';
                             }
 
                             $('.timeRoom').append(timeZone);

@@ -21,9 +21,16 @@ class User extends Seeder
                     'name'=>'admin',
                     'id_type'=>1,
                     'id_branch'=>1
+                ],
+                [
+                    'username'=>'ducln',
+                    'password'=>Hash::make('123'),
+                    'name'=>'Lê Ngọc Đức',
+                    'id_type'=>3,
+                    'id_branch'=>1
                 ]
-               
+
             ]);
-        
+
     }
 }

@@ -8,7 +8,11 @@
     </form>
 		</div>
 		<!-- end mobile-search -->
-  <a href="account.html" class="button-account"><i class="lni lni-user"></i> ACCOUNT </a>
+  <a href="{{ route('user.login') }}" class="button-account"><i class="lni lni-user"></i> @if (Auth::check())
+    {{ Auth::user()->name }}
+  @else
+  Tài khoản
+  @endif </a>
     <!-- end button-account -->
 	<div class="site-menu">
     <ul>
@@ -56,7 +60,11 @@
       <!-- end notify-dropdown -->
     </div>
     <!-- end navbar-notify -->
-    <div class="navbar-account"> <a href="account.html">ACCOUNT <i class="lni lni-user"></i> </a></div>
+    <div class="navbar-account"> <a href="{{ route('user.login') }}">@if (Auth::check())
+        {{ Auth::user()->name }}
+      @else
+      Tài khoản
+      @endif  <i class="lni lni-user"></i> </a></div>
     <!-- end navbar-account -->
   </div>
   <!-- end user-menu -->

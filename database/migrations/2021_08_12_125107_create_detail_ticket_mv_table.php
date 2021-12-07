@@ -20,6 +20,8 @@ class CreateDetailTicketMvTable extends Migration
             $table->bigInteger('id_seat')->unsigned();
             $table->foreign('id_seat')->references('id_seat')->on('seat')->onDelete('cascade')->onUpdate('cascade');
             // $table->integer('dtmv_status')->default();
+            $table->bigInteger('id_pay')->unsigned();
+            $table->foreign('id_pay')->references('id_pay')->on('payment')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -1,23 +1,10 @@
 @extends('client.template.master')
 @section('header')
-    <header class="page-header single" data-background="images/movie-poster-bg.jpg">
+    <header class="page-header">
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-player">
-                        <video src="{{ asset($movie->trailer) }}" poster="images/movie-poster.jpg" controls
-                            playsinline></video
-                    </div>
-                    <!-- end video-player -->
-                </div>
-                <!-- end col-12 -->
-            </div>
-            <!-- end col-12 -->
-            <!-- end row -->
+            <h1>Chọn hàng ghế</h1>
         </div>
-        <!-- end container -->
     </header>
-    <!-- end header -->
 @show
 @section('content')
     <section class="content-section" data-background="#ffffff">
@@ -35,7 +22,14 @@
                                     @foreach ($seatList as $item)
 
                                         <div class="col-sm-1">
-                                            <a href="" class="btn btn-success">{{ $item->seat_name }}</a>
+                                            @php
+                                                $find = DB::table('detail_ticket_mv')->where('id_seat', $item->id_seat)->count();
+                                            @endphp
+                                            @if ($find > 0)
+                                                <a href="#" disable class="btn btn-danger">{{ $item->seat_name }}</a>
+                                            @else
+                                                <a href="#" data-id-seat="{{ $item->id_seat }}" class="btn btn-success choseSeat">{{ $item->seat_name }}</a>
+                                            @endif
                                         </div>
                                         @if ($item->seat_row > $row)
                                             @php
@@ -106,28 +100,9 @@
         <script>
             $(document).ready(function () {
                 const base_url = window.location.origin;
-                $('.branch').click(function (e) {
+                $('.choseSeat').click(function (e) {
                     e.preventDefault();
-                    console.log($(this).data('branch'));
-                    var idBranch = $(this).data('branch');
-                    var idMovie = $(this).data('movie');
-                    console.log(idMovie);
-                    $.ajax({
-                        type: "GET",
-                        url: base_url+"/get-room/"+idBranch+"/"+idMovie,
-                        // data: "data",
-                        dataType: "json",
-                        success: function (response) {
-                            console.log(response);
-                            var timeZone = '';
-                            for (let index = 0; index < response.length; index++) {
-                                const element = response[index];
-                                timeZone += '<div class="col-sm-1"><a href="'+base_url+'/chon-ghe/'+response[index].id_st+'" class="btn btn-warning branch" style="margin-right: 5px; margin-bottom: 5px;">'+ response[index].datetime.slice(11,16) +'</a></div>';
-                            }
-
-                            $('.timeRoom').append(timeZone);
-                        }
-                    });
+                    console.log("clicked");
                 });
             });
         </script>

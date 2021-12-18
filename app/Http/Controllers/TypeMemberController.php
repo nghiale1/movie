@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeMember;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -14,10 +15,7 @@ class TypeMemberController extends Controller
      */
     public function index()
     {
-        $TypeMem = DB::table('type_member')
-            ->join('discount','discount.id_discount','type_member.id_discount')
-            ->join('benefit','benefit.id_benefit','type_member.id_benefit')
-            ->join('membership_card','membership_card.id_memcard','type_member.id_memcard')
+        $TypeMem = TypeMember::with(['benefit','discount','discount_for_mem'])
             ->get();
         return view('admin.type-member.index', compact('TypeMem'));
     }
@@ -43,24 +41,15 @@ class TypeMemberController extends Controller
      */
     public function store(Request $request)
     {
-        $typemem_name = $request->typemem_name;
-        $id_discount = $request->id_discount;
-        $id_benefit = $request->id_benefit;
-        $id_memcard = $request->id_memcard;
         try {
-            //code...
-            DB::table('type_member')->insert(
-                [
-                    'typemem_name' => $typemem_name,
-                    'id_discount' => $id_discount,
-                    'id_benefit' => $id_benefit,
-                    'id_memcard' => $id_memcard,
-                ]
+            TypeMember::create(
+              $request->all()
             );
             Session::flash('success','Thêm mới thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             Session::flash('error','Lỗi! Thêm mới không thành công'.'--class TypeMemberController_store');
             return redirect()->back();
         }
@@ -83,11 +72,10 @@ class TypeMemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TypeMember $typemember)
     {
         try {
-            //code...
-            $typeMemDetail = DB::table('type_member')->where('id_typemem', $id)->first();
+            $typeMemDetail = $typemember;
             return view('admin.type-member.edit', compact('typeMemDetail'));
         } catch (\Throwable $th) {
             //throw $th;
@@ -103,21 +91,11 @@ class TypeMemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TypeMember $typemember)
     {
-        $typemem_name = $request->typemem_name;
-        $id_discount = $request->id_discount;
-        $id_benefit = $request->id_benefit;
-        $id_memcard = $request->id_memcard;
         try {
-            //code...
-            DB::table('type_member')->where('id_typemem', $id)->update(
-                [
-                    'typemem_name' => $typemem_name,
-                    'id_discount' => $id_discount,
-                    'id_benefit' => $id_benefit,
-                    'id_memcard' => $id_memcard,
-                ]
+            $typemember->update(
+             $request->all()
             );
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
@@ -134,11 +112,10 @@ class TypeMemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TypeMember $typemember)
     {
         try {
-            //code...
-            DB::table('type_member')->where('id_typemem', $id)->delete();
+            $typemember->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

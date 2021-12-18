@@ -39,7 +39,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="{{ route('type-member.index', ['id'=>1]) }}" class="btn btn-default">Quay lại</a>
+                        <a href="{{ route('type-member.index') }}" class="btn btn-default">Quay lại</a>
                         <button type="submit" class="btn btn-primary">Thêm mới</button>
                     </div>
                 </form>

@@ -16,12 +16,10 @@ class CreateTableTypeMemberTable extends Migration
         Schema::create('type_member', function (Blueprint $table) {
             $table->bigIncrements('id_typemem');
             $table->string('typemem_name');
-            $table->bigInteger('id_discount')->unsigned();
+            $table->bigInteger('id_discount')->unsigned()->nullable();
             $table->foreign('id_discount')->references('id_discount')->on('discount')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('id_benefit')->unsigned();
+            $table->bigInteger('id_benefit')->unsigned()->nullable();
             $table->foreign('id_benefit')->references('id_benefit')->on('benefit')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigInteger('id_memcard')->unsigned();
-            $table->foreign('id_memcard')->references('id_memcard')->on('membership_card')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

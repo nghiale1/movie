@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
-            <form role="form" method="POST" action="{{ route('format.update', ['id' => $FormatDetail->id_format]) }}">
+            <form role="form" method="POST" action="{{ route('format.update', $format->id_format) }}">
                 <div class="card card-warning">
                     <div class="card-header">
                         <h3 class="card-title">Chỉnh sửa</h3>
@@ -34,13 +34,13 @@
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Tên định dạng</label>
-                                    <input type="text" value="{{ $FormatDetail->format_name }}" name="typeName" class="form-control">
+                                    <input type="text" value="{{ $format->format_name }}" name="format_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>Phụ thu giá vé</label>
-                                    <input type="text" value="{{ $FormatDetail->price }}" name="price" class="form-control">
+                                    <input type="number" value="{{ $format->price??0 }}" name="price" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="{{ route('format.index', ['id' => 1]) }}" class="btn btn-default">Quay lại</a>
+                        <a href="{{ route('format.index') }}" class="btn btn-default">Quay lại</a>
                         <button type="submit" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>

@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
-            <form role="form" method="POST" action="{{ route('type-acc.update', ['id' => $TypeAccDetail->id_type]) }}">
+            <form role="form" method="POST" action="{{ route('type-acc.update',$typeacc->id_type) }}">
                 <div class="card card-warning">
                     <div class="card-header">
                         <h3 class="card-title">Chỉnh sửa</h3>
@@ -35,7 +35,7 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Tên loại tài khoản</label>
-                                    <input type="text" value="{{ $TypeAccDetail->type_name }}" name="type_name" class="form-control">
+                                    <input type="text" value="{{ $typeacc->type_name }}" name="type_name" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="{{ route('type-acc.index', ['id' => 1]) }}" class="btn btn-default">Quay lại</a>
+                        <a href="{{ route('type-acc.index') }}" class="btn btn-default">Quay lại</a>
                         <button type="submit" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>

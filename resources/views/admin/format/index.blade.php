@@ -42,10 +42,10 @@
                     <tr>
                         <td>{{ $stt++ }}</td>
                         <td>{{ $item->format_name }}</td>
-                        <td>{{ $item->price }}</td>
+                        <td>{{ $item->price ??';'}}</td>
                         <td>
-                            <a href="{{ route('format.edit', ['id'=>$item->id_format]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('format.destroy', ['id'=>$item->format]) }}" class="btn btn-danger del">Xóa</a>
+                            <a href="{{ route('format.edit', $item->id_format) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('format.destroy', $item->id_format) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

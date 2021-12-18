@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Facades\CommonService;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -39,24 +41,17 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        $article_name = $request->article_name;
-        $content_artical = $request->content_article;
-        $image_artical = $request->image_article;
-        $id_user = $request->id_user;
         try {
             //code...
-            DB::table('article')->insert(
-                [
-                    'article_name' => $article_name,
-                    'content_artical' => $content_artical,
-                    'image_artical' => $image_artical,
-                    'id_user' => $id_user
-                ]
+            $article=Article::create($request->all()
             );
+            CommonService::uploadArticle($article, $request);
             Session::flash('success','Thêm mới thành công');
+
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             Session::flash('error','Lỗi! Thêm mới không thành công'.'--class ArticleController_store');
             return redirect()->back();
         }
@@ -79,12 +74,10 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit( Article $article)
     {
         try {
-            //code...
-            $articleDetail = DB::table('article')->where('id_article', $id)->first();
-            return view('admin.article.edit', compact('articleDetail'));
+            return view('admin.article.edit', compact('article'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -99,22 +92,14 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Article $article)
     {
-        $article_name = $request->article_name;
-        $content_artical = $request->content_article;
-        $image_artical = $request->image_article;
-        $id_user = $request->id_user;
         try {
             //code...
-            DB::table('article')->where('id_article', $id)->update(
-                [
-                    'article_name' => $article_name,
-                    'content_artical' => $content_artical,
-                    'image_artical' => $image_artical,
-                    'id_user' => $id_user
-                ]
+            $article->update($request->all()
             );
+            CommonService::uploadArticle($article, $request);
+
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
@@ -130,11 +115,11 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
         try {
             //code...
-            DB::table('article')->where('id_article', $id)->delete();
+            $article->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

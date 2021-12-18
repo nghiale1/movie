@@ -42,8 +42,8 @@
                         <td>{{ $stt++ }}</td>
                         <td>{{ $item->typemem_name }}</td>
                         <td>
-                            <a href="{{ route('type-member.edit', ['id'=>$item->id_typemem]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('type-member.destroy', ['id'=>$item->id_typemem]) }}" class="btn btn-danger del">Xóa</a>
+                            <a href="{{ route('type-member.edit', $item->id_typemem) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('type-member.destroy', $item->id_typemem) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

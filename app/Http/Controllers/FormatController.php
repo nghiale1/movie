@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Format;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -72,12 +73,10 @@ class FormatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Format $format)
     {
         try {
-            //code...
-            $FormatDetail = DB::table('format')->where('id_format', $id)->first();
-            return view('admin.format.edit', compact('FormatDetail'));
+            return view('admin.format.edit', compact('format'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -92,22 +91,18 @@ class FormatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Format $format)
     {
         $format_name = $request->format_name;
         $price = $request->price;
         try {
-            //code...
-            DB::table('format')->where('id_format', $id)->update(
-                [
-                    'format_name' => $format_name,
-                    'price' => $price
-                ]
+            $format->update($request->all()
             );
             Session::flash('success', 'Sửa dữ liệu thành công');
             return redirect()->back();
         } catch (\Throwable $th) {
             //throw $th;
+            dd($th);
             Session::flash('error', 'Sửa dữ liệu không thành công');
             return redirect()->back();
         }
@@ -119,11 +114,10 @@ class FormatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Format $format)
     {
         try {
-            //code...
-            DB::table('format')->where('id_format', $id)->delete();
+            $format->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

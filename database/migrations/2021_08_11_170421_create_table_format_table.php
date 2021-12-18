@@ -16,6 +16,7 @@ class CreateTableFormatTable extends Migration
         Schema::create('format', function (Blueprint $table) {
             $table->bigIncrements('id_format');
             $table->string('format_name');
+            $table->integer('price')->default(0);
             $table->timestamps();
         });
     }

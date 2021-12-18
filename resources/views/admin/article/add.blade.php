@@ -28,30 +28,31 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="{{ route('article.store') }}" method="POST">
+                <form role="form" action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="article_name">Tên chủ đề:</label>
-                            <input type="text" class="form-control" id="article_name" name="article_name" placeholder="Nhập tên chủ đề">
+                            <label for="artical_name">Tên chủ đề:</label>
+                            <input type="text" class="form-control" id="artical_name" name="artical_name" placeholder="Nhập tên chủ đề">
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="content_article">Nội dung</label>
-                            <textarea class="form-control" id="mv_content" name="content_article" placeholder="Nhập nội dung bài đăng"></textarea>
+                            <label for="content_artical">Nội dung</label>
+                            <textarea class="form-control" id="mv_content" name="content_artical" placeholder="Nhập nội dung bài đăng"></textarea>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="image_article">Hình ảnh</label>
-                            <input type="file" class="form-control" id="image_article" name="image_article">
+                            <label for="image_artical">Hình ảnh</label>
+                            <input type="file" class="form-control" id="image_artical" name="image_artical">
                         </div>
                     </div>
+                    <input type="hidden" name="id_user" id="" value="{{Auth::id()}}">
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="{{ route('article.index', ['id'=>1]) }}" class="btn btn-default">Quay lại</a>
+                        <a href="{{ route('article.index') }}" class="btn btn-default">Quay lại</a>
                         <button type="submit" class="btn btn-primary">Thêm mới</button>
                     </div>
                 </form>

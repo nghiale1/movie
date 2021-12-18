@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Article;
 use App\Models\Banner;
 use App\Models\Food;
 use App\Models\Movie;
@@ -93,6 +94,20 @@ class CommonService
                 $storagePath = Storage::disk('food')->put($path, $request->file('food_pic'));
                 $food->update([
                     'food_pic' => 'food/'.$storagePath,
+                ]);
+        }
+    }
+
+    public function uploadArticle(Article $article, $request)
+    {
+        if ($request->hasFile('image_artical')) {
+                $path = $this->getDateFolderCreate(date('Y-m-d H:i:s'));
+    
+                Storage::disk('article')->makeDirectory($path);
+    
+                $storagePath = Storage::disk('article')->put($path, $request->file('image_artical'));
+                $article->update([
+                    'image_artical' => 'article/'.$storagePath,
                 ]);
         }
     }

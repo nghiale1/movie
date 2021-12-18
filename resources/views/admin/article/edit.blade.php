@@ -13,7 +13,14 @@
 @section('title-direct')
     Tin tức
 @endsection
-
+@push('css')
+    <style>
+        .image{
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+@endpush
 {{-- set content --}}
 @section('content')
     {{-- thông báo --}}
@@ -22,7 +29,7 @@
     <div class="row">
         <div class="col-md-12">
             <!-- general form elements -->
-            <form role="form" method="POST" action="{{ route('article.update', ['id' => $articleDetail->id_article]) }}">
+            <form role="form" method="POST" action="{{ route('article.update',$article->id_artical) }}" enctype="multipart/form-data">
                 <div class="card card-warning">
                     <div class="card-header">
                         <h3 class="card-title">Chỉnh sửa tin tức</h3>
@@ -35,20 +42,21 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Tên chủ đề</label>
-                                    <input type="text" value="{{ $articleDetail->article_name }}" name="article_name" class="form-control">
+                                    <input type="text" value="{{ $article->artical_name }}" name="artical_name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>Nội dung</label>
-                                    <textarea type="text" value="{{ $articleDetail->content_article }}" name="content_article" class="form-control">
+                                    <textarea name="content_artical" class="form-control" cols="30" rows="10">{!! $article->content_artical !!}</textarea>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="image_article">Hình ảnh</label>
-                                    <input type="file" class="form-control" id="image_article" name="image_article" value="{{ $articleDetail->image_article }}">
+                                    <label for="image_artical">Hình ảnh</label>
+                                    <img src="{{asset($article->image_artical)}}" alt="" class="image">
+                                    <input type="file" class="form-control" id="image_artical" name="image_artical" value="{{ $article->image_artical }}">
                                 </div>
                             </div>
                         </div>
@@ -58,7 +66,7 @@
                     <!-- /.card-body -->
 
                     <div class="card-footer">
-                        <a href="{{ route('type-acc.index', ['id' => 1]) }}" class="btn btn-default">Quay lại</a>
+                        <a href="{{ route('article.index') }}" class="btn btn-default">Quay lại</a>
                         <button type="submit" class="btn btn-primary">Xác nhận</button>
                     </div>
                 </div>

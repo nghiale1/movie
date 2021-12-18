@@ -59,6 +59,12 @@ return [
             'url' => '/food',
             'visibility' => 'public',
         ],
+        'article' => [
+            'driver' => 'local',
+            'root' => public_path('/article'),
+            'url' => '/article',
+            'visibility' => 'public',
+        ],
         'trailer' => [
             'driver' => 'local',
             'root' => public_path('/trailer'),

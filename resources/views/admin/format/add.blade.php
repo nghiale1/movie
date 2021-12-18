@@ -39,7 +39,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="price">Phụ thu giá vé</label>
-                            <input type="text" class="form-control" id="price" name="price" placeholder="Nhập giá vé">
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá vé">
                         </div>
                     </div>
                     <!-- /.card-body -->

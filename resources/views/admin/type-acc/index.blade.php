@@ -42,8 +42,8 @@
                         <td>{{ $stt++ }}</td>
                         <td>{{ $item->type_name }}</td>
                         <td>
-                            <a href="{{ route('type_acc.edit', ['id'=>$item->id_type]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('type_acc.destroy', ['id'=>$item->id_type]) }}" class="btn btn-danger del">Xóa</a>
+                            <a href="{{ route('type-acc.edit', $item->id_type) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('type-acc.destroy', $item->id_type) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

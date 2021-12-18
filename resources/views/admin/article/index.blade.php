@@ -13,7 +13,14 @@
 @section('title-direct')
     Tin tức
 @endsection
-
+@push('css')
+    <style>
+        .image{
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+@endpush
 {{-- set content --}}
 @section('content')
     {{-- thông báo --}}
@@ -42,12 +49,14 @@
                     @foreach ($article as $item)
                     <tr>
                         <td>{{ $stt++ }}</td>
-                        <td>{{ $item->article_name }}</td>
-                        <td>{{ $item->content_article }}</td>
-                        <td>{{ $item->image_content }}</td>
+                        <td>{{ $item->artical_name }}</td>
+                        <td>{{ $item->content_artical }}</td>
                         <td>
-                            <a href="{{ route('article.edit', ['id'=>$item->id_article]) }}" class="btn btn-warning">Chỉnh sửa</a>
-                            <a href="{{ route('article.destroy', ['id'=>$item->id_article]) }}" class="btn btn-danger del">Xóa</a>
+                                    <img src="{{asset($item->image_artical)}}" alt="" class="image">
+                        </td>
+                        <td>
+                            <a href="{{ route('article.edit', $item->id_artical) }}" class="btn btn-warning">Chỉnh sửa</a>
+                            <a href="{{ route('article.destroy', $item->id_artical) }}" class="btn btn-danger del">Xóa</a>
                         </td>
                     </tr>
                     @endforeach

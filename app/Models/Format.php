@@ -34,6 +34,7 @@ class Format extends Model
 
 	protected $fillable = [
 		'format_name',
+		'price',
 	];
 
 	public function movies()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TypeAcc;
 use Illuminate\Http\Request;
 use DB;
 use Session;
@@ -38,8 +39,7 @@ class TypeAccController extends Controller
     {
         $type_name = $request->type_name;
         try {
-            //code...
-            DB::table('type_movie')->insert(
+            TypeAcc::create(
                 [
                     'type_name' => $type_name
                 ]
@@ -70,12 +70,10 @@ class TypeAccController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TypeAcc $typeacc)
     {
         try {
-            //code...
-            $typeDetail = DB::table('type_acc')->where('id_type', $id)->first();
-            return view('admin.type-acc.edit', compact('TypeAccDetail'));
+            return view('admin.type-acc.edit', compact('typeacc'));
         } catch (\Throwable $th) {
             //throw $th;
             Session::flash('error','Không vào được trang chi tiết');
@@ -90,12 +88,12 @@ class TypeAccController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, TypeAcc $typeacc)
     {
         $type_name = $request->type_name;
         try {
             //code...
-            DB::table('type_acc')->where('id_type', $id)->update(
+            $typeacc->update(
                 [
                     'type_name' => $type_name
                 ]
@@ -115,11 +113,11 @@ class TypeAccController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(TypeAcc $typeacc)
     {
         try {
             //code...
-            DB::table('type_acc')->where('id_type', $id)->delete();
+            $typeacc->delete();
             Session::flash('success', 'Xóa thành công');
             return redirect()->back();
         } catch (\Throwable $th) {

@@ -97,9 +97,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [TypeAccController::class, 'index'])->name('type-acc.index');
                 Route::get('/them-moi', [TypeAccController::class, 'create'])->name('type-acc.add');
                 Route::post('xu-ly-them', [TypeAccController::class, 'store'])->name('type-acc.store');
-                Route::get('/chinh-sua/{id}', [TypeAccController::class, 'edit'])->name('type-acc.edit');
-                Route::post('/xu-ly-sua/{id}', [TypeAccController::class, 'update'])->name('type-acc.update');
-                Route::get('/xoa/{id}', [TypeAccController::class, 'destroy'])->name('type-acc.destroy');
+                Route::get('/chinh-sua/{typeacc}', [TypeAccController::class, 'edit'])->name('type-acc.edit');
+                Route::post('/xu-ly-sua/{typeacc}', [TypeAccController::class, 'update'])->name('type-acc.update');
+                Route::get('/xoa/{typeacc}', [TypeAccController::class, 'destroy'])->name('type-acc.destroy');
             });
             //Loại tài khoản
             Route::prefix('/account')->group(function () {
@@ -116,9 +116,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [ArticleController::class, 'index'])->name('article.index');
                 Route::get('/them-moi', [ArticleController::class, 'create'])->name('article.add');
                 Route::post('xu-ly-them', [ArticleController::class, 'store'])->name('article.store');
-                Route::get('/chinh-sua/{id}', [ArticleController::class, 'edit'])->name('article.edit');
-                Route::post('/xu-ly-sua/{id}', [ArticleController::class, 'update'])->name('article.update');
-                Route::get('/xoa/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+                Route::get('/chinh-sua/{article}', [ArticleController::class, 'edit'])->name('article.edit');
+                Route::post('/xu-ly-sua/{article}', [ArticleController::class, 'update'])->name('article.update');
+                Route::get('/xoa/{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
             });
             //Banner
             Route::prefix('/banner')->group(function () {
@@ -143,9 +143,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [FormatController::class, 'index'])->name('format.index');
                 Route::get('/them-moi', [FormatController::class, 'create'])->name('format.add');
                 Route::post('xu-ly-them', [FormatController::class, 'store'])->name('format.store');
-                Route::get('/chinh-sua/{id}', [FormatController::class, 'edit'])->name('format.edit');
-                Route::post('/xu-ly-sua/{id}', [FormatController::class, 'update'])->name('format.update');
-                Route::get('/xoa/{id}', [FormatController::class, 'destroy'])->name('format.destroy');
+                Route::get('/chinh-sua/{format}', [FormatController::class, 'edit'])->name('format.edit');
+                Route::post('/xu-ly-sua/{format}', [FormatController::class, 'update'])->name('format.update');
+                Route::get('/xoa/{format}', [FormatController::class, 'destroy'])->name('format.destroy');
             });
             //Ngôn ngữ phim
             Route::prefix('/language')->group(function () {
@@ -170,9 +170,9 @@ Route::middleware(['CheckAuthSatff'])->group(function () {
                 Route::get('/', [TypeMemberController::class, 'index'])->name('type-member.index');
                 Route::get('/them-moi', [TypeMemberController::class, 'create'])->name('type-member.add');
                 Route::post('xu-ly-them', [TypeMemberController::class, 'store'])->name('type-member.store');
-                Route::get('/chinh-sua/{id}', [TypeMemberController::class, 'edit'])->name('type-member.edit');
-                Route::post('/xu-ly-sua/{id}', [TypeMemberController::class, 'update'])->name('type-member.update');
-                Route::get('/xoa/{id}', [TypeMemberController::class, 'destroy'])->name('type-member.destroy');
+                Route::get('/chinh-sua/{typemember}', [TypeMemberController::class, 'edit'])->name('type-member.edit');
+                Route::post('/xu-ly-sua/{typemember}', [TypeMemberController::class, 'update'])->name('type-member.update');
+                Route::get('/xoa/{typemember}', [TypeMemberController::class, 'destroy'])->name('type-member.destroy');
             });
             //Chi nhánh
             Route::prefix('/branch')->group(function () {

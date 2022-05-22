@@ -29,7 +29,7 @@ use App\Http\Controllers\TypeShowTimeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Client\MainController;
 
-
+use App\Http\Controllers\VNPaymentController;
 
 
 
@@ -270,6 +270,10 @@ Route::prefix('/')->group(function () {
             Route::get('/get-room/{idBranch}/{idMovie}', [MainController::class,'getRoomAjax']);
             Route::get('/chon-ghe/{idShowtime}', [MainController::class,'getSeat']);
             Route::post('/xac-nhan-ghe', [MainController::class,'toTal']);
+            Route::get('thanh-toan', [VNPaymentController::class, 'create'])->name('vn-pay.payment');
         });
     });
+    Route::get('/bai-viet', [MainController::class,'post'])->name('client.post');
+
+    Route::get('/chi-tiet-bai-viet/{id}', [MainController::class,'detailPost'])->name('client.detail.post');
 });

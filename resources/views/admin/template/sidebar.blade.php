@@ -91,7 +91,7 @@
                 </li>
                 <li class="nav-header">QUẢN LÝ PHIM</li>
                 @if (Auth::user()->id_type==2)
-                    
+
                 <li class="nav-item">
                     <a href="{{ route('showtime.index') }}" class="nav-link
                     @if (Request::segment(2) == 'suat-chieu')

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Article
- * 
+ *
  * @property int $id_artical
  * @property string $artical_name
  * @property string $content_artical
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id_user
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
+ *
  * @property User $user
  *
  * @package App\Models

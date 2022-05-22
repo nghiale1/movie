@@ -11,7 +11,9 @@ use Auth;
 class MainController extends Controller
 {
     public function index() {
-        return view('client.index');
+        $banner = DB::table('banner')->get();
+        $movie = DB::table('movie')->orderBy('date_start', 'DESC')->get();
+        return view('client.index', compact('movie','banner'));
     }
 
     public function movieList() {
@@ -43,11 +45,6 @@ class MainController extends Controller
             ->where('id_mv', $idMovie)
             ->whereDate('datetime','2021-11-16')
             ->get();
-            // if ($request->has('datetime')) {
-            //     # code...
-            //     $data = $data->whereDate('datetime',$request->datetime);
-            // }
-            // $data = $data->get();
         return response()->json($data, 200);
     }
 
@@ -81,7 +78,9 @@ class MainController extends Controller
         // for
         // return response()->json($request->seatChosed, 200);
         $arrSeat = $request->seatChosed;
+        $arrFood = $request->foodChosed;
         $arrQuery = explode(',', $arrSeat[0]);
+        $foodQuery = explode(',', $arrFood[0]);
         // return response()->json($arrQuery, 200);
         $seat = DB::table('seat')->join('type_seat','type_seat.id_typeseat','seat.id_typeseat')
         ->whereIn('seat.id_seat',$arrQuery)->get();
@@ -89,11 +88,33 @@ class MainController extends Controller
         $seatCount = DB::table('seat')->join('type_seat','type_seat.id_typeseat','seat.id_typeseat')
         ->whereIn('seat.id_seat',$arrQuery)->count();
 
-        $totalPrice = $getPriceDefault->price * $seatCount;
+        $food = DB::table('food')->whereIn('id_food',$foodQuery)->get();
+        $totalPriceFood = 0;
+        foreach ($food as $key => $value) {
+            # code...
+            $totalPriceFood = $totalPriceFood + $value->food_price;
+        }
+        $totalPrice = ($getPriceDefault->price * $seatCount) + $totalPriceFood;
         $reponse = [
             'seatInfo' => $seat,
-            'totalPrice' => $totalPrice
+            'totalPrice' => $totalPrice,
+            'foodInfo' => $food
         ];
         return response()->json($reponse, 200);
+    }
+
+    public function payment() {
+        // Session::push('')
+        $session = $request->session()->push('key.subArray', 'value');
+    }
+
+    public function post() {
+        $post = DB::table('article')->get();
+        return view('client.post', compact('post'));
+    }
+
+    public function detailPost($id) {
+        $detail = DB::table('article')->where('id_artical', $id)->first();
+        return view('client.detail-post', compact('detail'));
     }
 }

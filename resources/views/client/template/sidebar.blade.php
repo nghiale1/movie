@@ -19,7 +19,7 @@
       <li><a href="{{ route('index') }}">Trang chủ</a></li>
       <li><a href="{{ route('movie.list') }}">Phim</a></li>
       <li><a href="tv-shows.html">Thành viên</a></li>
-      <li><a href="tips.html">Tin tức & Sự kiện</a></li>
+      <li><a href="{{ route('client.post') }}">Tin tức & Sự kiện</a></li>
     </ul>
   </div>
   <!-- end site-menu -->
@@ -35,7 +35,7 @@
         <li><a href="{{ route('index') }}">Trang chủ</a></li>
         <li><a href="{{ route('movie.list') }}">Phim</a></li>
         <li><a href="tv-shows.html">Thành viên</a></li>
-        <li><a href="tips.html">Tin tức & Sự kiện</a></li>
+        <li><a href="{{ route('client.post') }}">Tin tức & Sự kiện</a></li>
       </ul>
   </div>
   <!-- end site-menu -->

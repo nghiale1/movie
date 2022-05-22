@@ -90,8 +90,10 @@ class MainController extends Controller
         ->whereIn('seat.id_seat',$arrQuery)->count();
 
         $totalPrice = $getPriceDefault->price * $seatCount;
-        return response()->json(number_format($totalPrice), 200);
-        // $getTotal =
-        return response()->json($seat, 200);
+        $reponse = [
+            'seatInfo' => $seat,
+            'totalPrice' => $totalPrice
+        ];
+        return response()->json($reponse, 200);
     }
 }

@@ -67,7 +67,7 @@
                             <input type="text" name="seatChosed[]" hidden class="seatChosed">
                             <button type="submit" class="add-btn">+ XÁC NHẬN</button>
                         </form>
-                        <button type="submit" class="add-btn">THANH TOÁN</button>
+                        <button type="submit" class="add-btn" data-toggle="modal" data-target="#exampleModal">THANH TOÁN</button>
                     </div>
                     <!-- end movie-info-box -->
                 </div>
@@ -95,7 +95,26 @@
         <!-- end container -->
     </section>
     <!-- end content-section -->
-
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     @push('booking')
         <script>
             $(document).ready(function () {
@@ -138,11 +157,17 @@
                     success: function(data)
                         {
                             console.log(data);// show response from the php script.
-                            var content = '<span class="itemTiketBuy">'+ nameSeat+ ', ' +'</span>';
-                            var totalPrice = '<span class="itemTiketBuyTotal">'+ data +'</span>';
+                            data.seatInfo.forEach(e => {
+                                nameSeat.push(e.seatName);
+                            });
+                            var content = '<span class="itemTiketBuy">'+ nameSeat +'</span>';
+                            var totalPrice = '<span class="itemTiketBuyTotal">'+ new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(data.totalPrice) +'</span>';
                             $('.tiketBuy').append(content);
                             $('.tiketTotal').append(totalPrice);
-                        }
+                        },
+                    error: function (data) {
+                        console.log(data);
+                      }
                     });
                 });
             });

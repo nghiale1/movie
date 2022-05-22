@@ -44,10 +44,6 @@ use App\Http\Controllers\Client\MainController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('customer.index');
-// });
-
 Route::middleware(['CheckAuthSatff'])->group(function () {
     Route::group(['middleware' => 'CheckRole:2'], function () { //nhân viên
         //Phim

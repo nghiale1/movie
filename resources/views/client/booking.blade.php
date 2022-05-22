@@ -82,7 +82,6 @@
                                 const element = response[index];
                                 timeZone += '<div class="col-sm-1 itemTime"><a href="'+base_url+'/chon-ghe/'+response[index].id_st+'" class="btn btn-warning branch" style="margin-right: 5px; margin-bottom: 5px;">'+ response[index].datetime.slice(11,16) +'</a></div>';
                             }
-
                             $('.timeRoom').append(timeZone);
                         }
                     });

@@ -12,8 +12,10 @@ class MainController extends Controller
 {
     public function index() {
         $banner = DB::table('banner')->get();
-        $movie = DB::table('movie')->orderBy('date_start', 'DESC')->get();
-        return view('client.index', compact('movie','banner'));
+        $movieNew = DB::table('movie')->orderBy('date_start', 'DESC')->paginate(4);
+        $post = DB::table('article')->first();
+        $movieForYou = DB::table('movie')->orderBy('date_start', 'DESC')->paginate(6);
+        return view('client.index', compact('movieNew','banner','post','movieForYou'));
     }
 
     public function movieList() {

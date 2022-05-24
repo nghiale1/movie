@@ -6,7 +6,7 @@
           <div class="container" data-swiper-parallax="200">
             <h6 class="tagline">NEW RELEASES</h6>
             <h2 class="name">The Rise of<br>
-              <strong>Football</strong></h2>
+              <strong>Footballsdasdasd</strong></h2>
             <ul class="features">
               <li>
                 <div class="rate">
@@ -14,8 +14,8 @@
                     <circle class="circle-chart__background" stroke="#2f3439" stroke-width="2" fill="none" cx="15" cy="15" r="14"></circle>
                     <circle class="circle-chart__circle" stroke="#4eb04b" stroke-width="2" stroke-dasharray="50,100" cx="15" cy="15" r="14"></circle>
                   </svg>
-                  <b>5.4</b> IMDB SCORE </div>
-                <!-- end rate --> 
+                  <b>5.4</b> IMDB SCOREasdasdsad </div>
+                <!-- end rate -->
               </li>
               <li>
                 <div class="year">2020</div>
@@ -31,9 +31,9 @@
 				'The Football' follows Dee Dee Allen and Barry Glickman <br>who are New York City stage stars.
 				</p>
             <a href="movie-single.html" class="play-btn">WATCH TRAILER</a> <a href="account.html" class="add-btn">+</a> </div>
-          <!-- end container --> 
+          <!-- end container -->
         </div>
-        <!-- end slide-inner --> 
+        <!-- end slide-inner -->
       </div>
       <!-- end swiper-slide -->
       <div class="swiper-slide">
@@ -50,7 +50,7 @@
                     <circle class="circle-chart__circle" stroke="#4eb04b" stroke-width="2" stroke-dasharray="50,100" cx="15" cy="15" r="14"></circle>
                   </svg>
                   <b>5.4</b> IMDB SCORE </div>
-                <!-- end rate --> 
+                <!-- end rate -->
               </li>
               <li>
                 <div class="year">2020</div>
@@ -65,9 +65,9 @@
             <p class="description">From attending the prom with her girlfriend, Alyssa<br>
  When Dee Dee and Barry decide that Emma's </p>
             <a href="movie-single.html" class="play-btn">PLAY MOVIE</a> <a href="account.html" class="add-btn">+</a> </div>
-          <!-- end container --> 
+          <!-- end container -->
         </div>
-        <!-- end slide-inner --> 
+        <!-- end slide-inner -->
       </div>
       <!-- end swiper-slide -->
       <div class="swiper-slide">
@@ -84,7 +84,7 @@
                     <circle class="circle-chart__circle" stroke="#4eb04b" stroke-width="2" stroke-dasharray="50,100" cx="15" cy="15" r="14"></circle>
                   </svg>
                   <b>5.4</b> IMDB SCORE </div>
-                <!-- end rate --> 
+                <!-- end rate -->
               </li>
               <li>
                 <div class="year">2020</div>
@@ -99,15 +99,15 @@
             <p class="description">She can truly celebrate who she is. Directed by Ryan Murphy<br>'The Mandou' is the spectacular, big-hearted film.
 				</p>
             <a href="movie-single.html" class="play-btn">PLAY TRAILER</a> <a href="account.html" class="add-btn">+</a> </div>
-          <!-- end container --> 
+          <!-- end container -->
         </div>
-        <!-- end slide-inner --> 
+        <!-- end slide-inner -->
       </div>
-      <!-- end swiper-slide --> 
+      <!-- end swiper-slide -->
     </div>
     <!-- end swiper-wrapper -->
     <div class="swiper-pagination"></div>
-    <!-- end swiper-pagination --> 
+    <!-- end swiper-pagination -->
   </div>
-  <!-- end main-slider --> 
+  <!-- end main-slider -->
 </header>

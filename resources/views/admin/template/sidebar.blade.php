@@ -16,9 +16,9 @@
                     class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">No name</a>
+                <a href="#" class="d-block">ADMIN</a>
                 <br>
-                <a href="#" class="d-block" style="color:red;">Đăng xuất</a>
+                <a href="{{ route('user.logout') }}" class="d-block" style="color:red;">Đăng xuất</a>
             </div>
         </div>
 

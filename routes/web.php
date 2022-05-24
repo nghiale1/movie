@@ -45,6 +45,9 @@ use App\Http\Controllers\VNPaymentController;
 */
 
 Route::middleware(['CheckAuthSatff'])->group(function () {
+
+    Route::get('/dang-xuat', [MainController::class, 'logout'])->name('user.logout');
+
     Route::group(['middleware' => 'CheckRole:2'], function () { //nhân viên
         //Phim
         Route::prefix('/suat-chieu')->name('showtime.')->group(function () {

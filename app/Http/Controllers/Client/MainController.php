@@ -59,6 +59,11 @@ class MainController extends Controller
         return view('client.login');
     }
 
+    public function logout() {
+        $logout = Auth::logout();
+        return redirect()->back();
+    }
+
     public function handleLogin(Request $request) {
         $arrUser = [
             'username' => $request->username,

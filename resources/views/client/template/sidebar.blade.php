@@ -62,6 +62,8 @@
     <!-- end navbar-notify -->
     <div class="navbar-account"> <a href="{{ route('user.login') }}">@if (Auth::check())
         {{ Auth::user()->name }}
+        <br>
+        <br><a href="{{ route('user.logout') }}">Đăng xuất</a>
       @else
       Tài khoản
       @endif  <i class="lni lni-user"></i> </a></div>

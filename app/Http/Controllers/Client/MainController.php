@@ -20,8 +20,9 @@ class MainController extends Controller
 
     public function movieList() {
         $movie = Movie::join('type_movie','type_movie.id_typemv','movie.id_typemv')->get();
+        $banner = DB::table('banner')->get();
         // dd($movie);
-        return view('client.movie', compact('movie'));
+        return view('client.movie', compact('movie','banner'));
     }
 
     public function movieDetail($id) {

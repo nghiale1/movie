@@ -66,6 +66,10 @@ class MainController extends Controller
         ];
         // dd($arrUser);
         if (Auth::attempt($arrUser)) {
+            if (Auth::user()->id_type == 1) {
+                # code...
+                return redirect()->route('movie.index');
+            }
             return redirect()->route('movie.list');
         }
         else {
@@ -75,8 +79,6 @@ class MainController extends Controller
 
 
     public function toTal(Request $request) {
-        // for
-        // return response()->json($request->seatChosed, 200);
         $arrSeat = $request->seatChosed;
         $arrFood = $request->foodChosed;
         $arrQuery = explode(',', $arrSeat[0]);
